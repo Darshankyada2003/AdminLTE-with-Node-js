@@ -86,6 +86,58 @@ const registerPage = (req, res) => {
     })
 }
 
+
+const login = async (req, res) => {
+    try {
+        const errorMsg = [];
+        const error = validationResult(req);
+        if (!error.isEmpty()) {
+            error.array().forEach((err) => {
+                errorMsg.push({
+                    param: err.param,
+                    msg: err.msg,
+                    value: err.value,
+                    path: err.path
+                })
+            })
+            return res.render('login', {
+                errorMsg,
+                FormData: req.body
+            })
+        }
+
+        const { email, password } = req.body;
+
+        const checkUser = await users.findOne({ where: { email } });
+        if (!checkUser) {
+            errorMsg.push({
+                path: "email",
+                msg: "Invalid Email"
+            })
+            return res.render('login', {
+                errorMsg,
+                FormData: req.body
+            })
+        }
+
+        const userPassword = await bcrypt.compare(password, checkUser.password);
+        if (!userPassword) {
+            errorMsg.push({
+                path: "password",
+                msg: "Invalid Password"
+            })
+            return res.render('login', {
+                errorMsg,
+                FormData: req.body
+            })
+        }
+        console.log("login successfully")
+        res.redirect('/');
+    } catch (error) {
+        console.error("User login error", error);
+    }
+}
+
 // Login GET
 const loginPage = (req, res) => {
     res.render('login', {
@@ -93,4 +145,4 @@ const loginPage = (req, res) => {
         FormData: {}
     })
 }
-module.exports = { registration, registerPage, loginPage }
+module.exports = { registration, registerPage, loginPage, login }

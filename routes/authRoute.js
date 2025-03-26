@@ -11,7 +11,7 @@ router.get("/login", authController.loginPage);
 
 router.get("/registration", authController.registerPage);
 
-router.post('/login', authvalidation.validationLogin);
+router.post('/login', authvalidation.validationLogin, authController.login);
 router.post('/registration', authvalidation.validationRegister, authController.registration);
 
 module.exports = router;
