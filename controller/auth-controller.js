@@ -125,14 +125,27 @@ const login = async (req, res) => {
             errorMsg.push({
                 path: "password",
                 msg: "Invalid Password"
-            })
+            });
             return res.render('login', {
                 errorMsg,
                 FormData: req.body
-            })
+            });
         }
-        console.log("login successfully")
-        res.redirect('/');
+
+        // Store session
+        req.session.users = { id: checkUser.id, name: checkUser.fullName };
+
+        // Store user data in a cookie
+        const userData = {
+            name: checkUser.fullName,
+            email: checkUser.email
+        };
+
+        res.cookie("UserData", JSON.stringify(userData), { httpOnly: true });
+
+        console.log("Login successful");
+        return res.redirect('/');
+
     } catch (error) {
         console.error("User login error", error);
     }
