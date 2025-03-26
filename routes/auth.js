@@ -1,21 +1,17 @@
 const express = require('express');
-const { validationRegister, validationLogin } = require('../validation/auth-validation');
-const { registration } = require('../controller/auth-controller');
+const authvalidation = require('../validation/auth-validation');
+const authController = require('../controller/auth-controller');
 const router = express.Router();
 
 router.get("/", (req, res) => {
-    res.render('dashboard')
+    res.render('dashboard');
 });
 
-router.get("/login", (req, res) => {
-    res.render('login')
-});
+router.get("/login", authController.loginPage);
 
-router.get("/registration", (req, res) => {
-    res.render('registration')
-});
+router.get("/registration", authController.registerPage);
 
-router.post('/login', validationLogin);
-router.post('/registration', validationRegister, registration);
+router.post('/login', authvalidation.validationLogin);
+router.post('/registration', authvalidation.validationRegister, authController.registration);
 
 module.exports = router;

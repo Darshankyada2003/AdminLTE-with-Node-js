@@ -26,23 +26,68 @@
         <div class="card">
             <div class="card-body register-card-body">
                 <p class="login-box-msg">Register a new membership</p>
-
+                <div>
+                    <% if(errorMsg) { %>
+                        <% errorMsg.forEach(function (error) { %>
+                            <% if(error.path==="registerSuccess" ) { %>
+                                <p class="text text-success">
+                                    <%= error.msg %>
+                                </p>
+                                <% } %>
+                                    <% }); %>
+                                        <% } %>
+                </div>
+                <div>
+                    <% if(errorMsg) { %>
+                        <% errorMsg.forEach(function (error) { %>
+                            <% if(error.path==="registerFailed" ) { %>
+                                <p class="text text-danger">
+                                    <%= error.msg %>
+                                </p>
+                                <% } %>
+                                    <% }); %>
+                                        <% } %>
+                </div>
                 <form action="/registration" method="post">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Full name" name="fullName" id="fullName">
+                        <input type="text" class="form-control" placeholder="Full name" name="fullName" id="fullName"
+                            value="<%= FormData.fullName ? FormData.fullName : '' %>">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
                             </div>
                         </div>
                     </div>
+                    <div>
+                        <% if(errorMsg) { %>
+                            <% errorMsg.forEach(function(error) {%>
+                                <% if(error.path==="fullName" ) { %>
+                                    <span class="text-sm text-danger">
+                                        <%= error.msg %>
+                                    </span>
+                                    <% } %>
+                                        <% }) %>
+                                            <% } %>
+                    </div>
                     <div class="input-group mb-3">
-                        <input type="email" class="form-control" placeholder="Email" name="email" id="email">
+                        <input type="email" class="form-control" placeholder="Email" name="email" id="email"
+                            value="<%= FormData.email ? FormData.email : '' %>">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
                             </div>
                         </div>
+                    </div>
+                    <div>
+                        <% if(errorMsg) { %>
+                            <% errorMsg.forEach(function(error) {%>
+                                <% if(error.path==="email" ) { %>
+                                    <span class="text-sm text-danger">
+                                        <%= error.msg %>
+                                    </span>
+                                    <% } %>
+                                        <% }) %>
+                                            <% } %>
                     </div>
                     <div class="input-group mb-3">
                         <input type="password" class="form-control" placeholder="Password" name="password"
@@ -53,6 +98,17 @@
                             </div>
                         </div>
                     </div>
+                    <div>
+                        <% if(errorMsg) { %>
+                            <% errorMsg.forEach(function(error) { %>
+                                <% if(error.path==="password" ) { %>
+                                    <span class="text-sm text-danger">
+                                        <%= error.msg %>
+                                    </span>
+                                    <% } %>
+                                        <% }) %>
+                                            <% } %>
+                    </div>
                     <div class="input-group mb-3">
                         <input type="password" class="form-control" placeholder="Retype password" name="confirmPassword"
                             id="confirmPassword">
@@ -61,6 +117,17 @@
                                 <span class="fas fa-lock"></span>
                             </div>
                         </div>
+                    </div>
+                    <div>
+                        <% if(errorMsg) { %>
+                            <% errorMsg.forEach(function(error) {%>
+                                <% if(error.path==="confirmPassword" ){ %>
+                                    <span class="text-sm text-danger">
+                                        <%= error.msg %>
+                                    </span>
+                                    <% } %>
+                                        <% }) %>
+                                            <% } %>
                     </div>
                     <div class="row">
                         <div class="col-8">
@@ -73,7 +140,7 @@
                         </div>
                         <!-- /.col -->
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Register</button>
+                            <input type="submit" class="btn btn-primary btn-block" value="Register">
                         </div>
                         <!-- /.col -->
                     </div>
@@ -91,7 +158,8 @@
                     </a>
                 </div>
 
-                <a href="login.html" class="text-center">I already have a membership</a>
+                <a href="/login" class="text-center">I already have a
+                    membership</a>
             </div>
             <!-- /.form-box -->
         </div><!-- /.card -->

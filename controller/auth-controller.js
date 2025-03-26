@@ -2,55 +2,95 @@ const { validationResult } = require('express-validator');
 const bcrypt = require('bcrypt')
 const users = require('../models/user');
 
+// Registration POST
 const registration = async (req, res) => {
-
-    const errorMsg = [];
-    const error = validationResult(req);
-    if (!error.isEmpty()) {
-        error.array().forEach((err) => {
-            errorMsg.push({
-                param: err.param,
-                msg: err.msg,
-                value: err.value,
-                path: err.path
+    try {
+        const errorMsg = [];
+        const error = validationResult(req);
+        if (!error.isEmpty()) {
+            error.array().forEach((err) => {
+                errorMsg.push({
+                    param: err.param,
+                    msg: err.msg,
+                    value: err.value,
+                    path: err.path
+                })
             })
-        });
-        return res.render('/registration', {
-            errorMsg,
-            FormData: req.body
-        })
-    }
+            return res.render('registration',
+                {
+                    errorMsg,
+                    FormData: req.body
+                });
+        }
+        const { fullName, email, password, confirmPassword } = req.body;
 
-    const { fullName, email, password } = req.body;
+        if (password !== confirmPassword) {
+            errorMsg.push({
+                param: "password",
+                msg: "Password do not match",
+                value: confirmPassword,
+                path: "password",
+            })
+            return res.render("registration", {
+                errorMsg,
+                FormData: req.body
+            })
+        }
 
-    const checkEmail = await users.findOne({ where: { email } });
-    if (checkEmail) {
-        errorMsg.push({
-            msg: "Email is already exists."
+        const checkEmail = await users.findOne({ where: { email } });
+        if (checkEmail) {
+            errorMsg.push({
+                param: "email",
+                msg: "User already Exists",
+                value: email,
+                path: "email"
+            })
+            return res.render('registration', {
+                errorMsg,
+                FormData: req.body
+            });
+        }
+        const hashPassword = await bcrypt.hash(password, 10);
+        const createUser = await users.create({
+            fullName,
+            email,
+            password: hashPassword
         });
-        return res.render("/registration", {
+        if (createUser) {
+            errorMsg.push({
+                msg: "User Register Successfully.",
+                path: "registerSuccess"
+            })
+        } else {
+            errorMsg.push({
+                msg: "user register failed.",
+                path: "registerFailed"
+            })
+        }
+        return res.render('registration', {
             errorMsg,
             FormData: req.body
         })
-    }
-    const hashPassword = await bcrypt.hash(password, 10);
-    const userCreate = await users.create({
-        fullName: fullName,
-        email: email,
-        password: hashPassword
-    });
-    if (!userCreate) {
-        errorMsg.push({
-            param: "registration",
-            msg: "User Registration failed.",
-            value: "null",
-            path: "registration"
+    } catch (error) {
+        console.error("Registration Error:", error);
+        return res.status(500).render('registration', {
         });
-        return res.render("/registration", {
-            errorMsg,
-            FormData: req.body
-        })
     }
 }
 
-module.exports = { registration }
+// registration GET 
+const registerPage = (req, res) => {
+    res.render('registration', {
+        errorMsg: [],
+        FormData: {}
+    })
+}
+
+// Login GET
+const loginPage = (req, res) => {
+    res.render('login', {
+        errorMsg: [],
+        FormData: {}
+    })
+}
+module.exports = { registration, registerPage, loginPage }

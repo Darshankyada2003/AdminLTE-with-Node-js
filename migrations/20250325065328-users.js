@@ -12,6 +12,10 @@ module.exports = {
           autoIncrement: true,
           primaryKey: true
         },
+        fullName: {
+          type: Sequelize.STRING,
+          allowNull: false
+        },
         email: {
           type: Sequelize.STRING,
         },
