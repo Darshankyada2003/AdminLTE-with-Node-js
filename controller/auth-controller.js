@@ -158,4 +158,11 @@ const loginPage = (req, res) => {
         FormData: {}
     })
 }
-module.exports = { registration, registerPage, loginPage, login }
+
+// Dashboard GET
+const dashboard = (req, res) => {
+    res.render('dashboard');
+}
+
+
+module.exports = { registration, registerPage, loginPage, login, dashboard }
