@@ -1,5 +1,5 @@
 const isAuthenticated = (req, res, next) => {
-    const { id } = req.session.user || {};
+    const { id } = req.session.users || {};
     if (!id) {
         return res.redirect('/login');
     }
@@ -7,7 +7,7 @@ const isAuthenticated = (req, res, next) => {
 };
 
 const Authenticated = (req, res, next) => {
-    const { id } = req.session.user || {};
+    const { id } = req.session.users || {};
     if (id) {
         return res.redirect('/');
     }

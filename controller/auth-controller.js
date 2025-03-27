@@ -86,7 +86,7 @@ const registerPage = (req, res) => {
     })
 }
 
-
+// Login POST
 const login = async (req, res) => {
     try {
         const errorMsg = [];
@@ -164,5 +164,20 @@ const dashboard = (req, res) => {
     res.render('dashboard');
 }
 
+// Logout and session delete
+const logout = async (req, res) => {
+    
+    res.clearCookie('UserData');
+    res.clearCookie('connect.sid');
+    req.session.destroy((err) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send('logout error');
+        } else {
+            res.redirect('/login')
+        };
+    });
 
-module.exports = { registration, registerPage, loginPage, login, dashboard }
+}
+
+module.exports = { registration, registerPage, loginPage, login, dashboard, logout }

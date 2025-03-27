@@ -4,12 +4,13 @@ const authController = require('../controller/auth-controller');
 const authMiddlerware = require('../middleware/auth-middleware');
 const router = express.Router();
 
-router.get("/", authMiddlerware.Authenticated, authController.dashboard);
+//GET
+router.get("/", authMiddlerware.isAuthenticated, authController.dashboard);
+router.get("/login", authMiddlerware.Authenticated, authController.loginPage);
+router.get("/registration", authMiddlerware.Authenticated, authController.registerPage);
+router.get('/logout', authController.logout)
 
-router.get("/login", authMiddlerware.isAuthenticated, authController.loginPage);
-
-router.get("/registration", authMiddlerware.isAuthenticated, authController.registerPage);
-
+//POST
 router.post('/login', authvalidation.validationLogin, authController.login);
 router.post('/registration', authvalidation.validationRegister, authController.registration);
 

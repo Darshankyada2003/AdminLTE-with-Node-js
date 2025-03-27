@@ -21,6 +21,12 @@ app.use(session({
     store: new file_store(File_session)
 }));
 
+// middleware route access
+app.use((req, res, next) => {
+    res.set('Cache-Control', 'no-store');
+    next();
+});
+
 //Route
 app.use('/', router);
 
