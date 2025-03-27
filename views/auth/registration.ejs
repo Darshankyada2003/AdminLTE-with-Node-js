@@ -132,7 +132,7 @@
                     <div class="row mt-2">
                         <div class="col-8">
                             <div class="icheck-primary">
-                                <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+                                <input type="checkbox" id="agreeTerms" name="terms" value="agree" id="terms" >
                                 <label for="agreeTerms">
                                     I agree to the <a href="#">terms</a>
                                 </label>
@@ -144,6 +144,15 @@
                         </div>
                         <!-- /.col -->
                     </div>
+                    <% if(errorMsg){ %>
+                        <% errorMsg.forEach((error)=> {%>
+                            <% if(error.path==="terms" ) {%>
+                                <span class="error-message">
+                                    <%= error.msg %>
+                                </span>
+                                <% } %>
+                                    <% }) %>
+                                        <% } %>
                 </form>
 
                 <div class="social-auth-links text-center">

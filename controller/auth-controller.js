@@ -22,7 +22,7 @@ const registration = async (req, res) => {
                     FormData: req.body
                 });
         }
-        const { fullName, email, password, confirmPassword } = req.body;
+        const { fullName, email, password, confirmPassword, terms } = req.body;
 
         if (password !== confirmPassword) {
             errorMsg.push({
@@ -32,6 +32,17 @@ const registration = async (req, res) => {
                 path: "password",
             })
             return res.render("auth/registration", {
+                errorMsg,
+                FormData: req.body
+            })
+        }
+
+        if (!terms) {
+            errorMsg.push({
+                path: "terms",
+                msg: "You must agree to the terms and conditions"
+            });
+            return res.render('auth/registration', {
                 errorMsg,
                 FormData: req.body
             })
@@ -100,13 +111,13 @@ const login = async (req, res) => {
                     path: err.path
                 })
             })
-            return res.render('login', {
+            return res.render('auth/login', {
                 errorMsg,
                 FormData: req.body
             })
         }
 
-        const { email, password } = req.body;
+        const { email, password, rememberMe } = req.body;
 
         const checkUser = await users.findOne({ where: { email } });
         if (!checkUser) {
@@ -130,6 +141,17 @@ const login = async (req, res) => {
                 errorMsg,
                 FormData: req.body
             });
+        }
+
+        if (!rememberMe) {
+            errorMsg.push({
+                path: "rememberMe",
+                msg: "You must select Remember Me to continue"
+            })
+            return res.render('auth/login', {
+                errorMsg,
+                FormData: req.body
+            })
         }
 
         // Store session
@@ -166,7 +188,7 @@ const dashboard = (req, res) => {
 
 // Logout and session delete
 const logout = async (req, res) => {
-    
+
     res.clearCookie('UserData');
     res.clearCookie('connect.sid');
     req.session.destroy((err) => {
