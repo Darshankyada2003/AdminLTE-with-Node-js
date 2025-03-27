@@ -16,7 +16,7 @@ const registration = async (req, res) => {
                     path: err.path
                 })
             })
-            return res.render('registration',
+            return res.render('auth/registration',
                 {
                     errorMsg,
                     FormData: req.body
@@ -31,7 +31,7 @@ const registration = async (req, res) => {
                 value: confirmPassword,
                 path: "password",
             })
-            return res.render("registration", {
+            return res.render("auth/registration", {
                 errorMsg,
                 FormData: req.body
             })
@@ -45,7 +45,7 @@ const registration = async (req, res) => {
                 value: email,
                 path: "email"
             })
-            return res.render('registration', {
+            return res.render('auth/registration', {
                 errorMsg,
                 FormData: req.body
             });
@@ -67,20 +67,20 @@ const registration = async (req, res) => {
                 path: "registerFailed"
             })
         }
-        return res.render('registration', {
+        return res.render('auth/registration', {
             errorMsg,
             FormData: req.body
         })
     } catch (error) {
         console.error("Registration Error:", error);
-        return res.status(500).render('registration', {
+        return res.status(500).render('auth/registration', {
         });
     }
 }
 
 // registration GET 
 const registerPage = (req, res) => {
-    res.render('registration', {
+    res.render('auth/registration', {
         errorMsg: [],
         FormData: {}
     })
@@ -114,7 +114,7 @@ const login = async (req, res) => {
                 path: "email",
                 msg: "Invalid Email"
             })
-            return res.render('login', {
+            return res.render('auth/login', {
                 errorMsg,
                 FormData: req.body
             })
@@ -126,7 +126,7 @@ const login = async (req, res) => {
                 path: "password",
                 msg: "Invalid Password"
             });
-            return res.render('login', {
+            return res.render('auth/login', {
                 errorMsg,
                 FormData: req.body
             });
@@ -153,7 +153,7 @@ const login = async (req, res) => {
 
 // Login GET
 const loginPage = (req, res) => {
-    res.render('login', {
+    res.render('auth/login', {
         errorMsg: [],
         FormData: {}
     })

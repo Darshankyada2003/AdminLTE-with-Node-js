@@ -28,7 +28,7 @@
                 <p class="login-box-msg">Sign in to start your session</p>
 
                 <form action="/login" method="post">
-                    <div class="input-group mb-3">
+                    <div class="input-group mt-2">
                         <input type="email" class="form-control" placeholder="Email" name="email" id="email"
                             value="<%= FormData.email ? FormData.email : ''  %>">
                         <div class="input-group-append">
@@ -45,12 +45,12 @@
                             </span>
                             <% } }) } %>
                     </div>
-                    <div class="input-group mb-3">
+                    <div class="input-group mt-2">
                         <input type="password" class="form-control" placeholder="Password" name="password"
-                            id="password">
+                            id="password-input">
                         <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
+                            <div class="input-group-text" id="toggle-password">
+                                <span class="fas fa-eye" id="toggle-icon"></span>
                             </div>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                                         <% }) %>
                                             <% } %>
                     </div>
-                    <div class="row">
+                    <div class="row mt-2">
                         <div class="col-8">
                             <div class="icheck-primary">
                                 <input type="checkbox" id="remember">
@@ -111,6 +111,8 @@
     <script src="/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="/js/adminlte.min.js"></script>
+
+    <script src="/js/password.js"></script>
 </body>
 
 </html>
@@ -119,7 +121,6 @@
     .error-message {
         color: red;
         font-size: 12px;
-        margin-top: -10px;
         display: block;
     }
 </style>
