@@ -40,7 +40,7 @@
                     <div>
                         <% if(errorMsg) { errorMsg.forEach((err)=> {
                             if(err.path==="email" ){ %>
-                            <span class="text-sm text-danger">
+                            <span class="error-message">
                                 <%= err.msg %>
                             </span>
                             <% } }) } %>
@@ -58,7 +58,7 @@
                         <% if(errorMsg) { %>
                             <% errorMsg.forEach((err)=> { %>
                                 <% if(err.path==="password" ){ %>
-                                    <span class="text-sm text-danger">
+                                    <span class="error-message">
                                         <%= err.msg %>
                                     </span>
                                     <% } %>
@@ -114,3 +114,12 @@
 </body>
 
 </html>
+
+<style>
+    .error-message {
+        color: red;
+        font-size: 12px;
+        margin-top: -10px;
+        display: block;
+    }
+</style>
