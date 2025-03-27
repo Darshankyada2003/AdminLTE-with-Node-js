@@ -26,17 +26,30 @@
         <div class="card">
             <div class="card-body register-card-body">
                 <p class="login-box-msg">Register a new membership</p>
-                <div>
-                    <% if(errorMsg) { %>
-                        <% errorMsg.forEach(function (error) { %>
+                
+                <!--Success message-->
+                <% if(errorMsg) { %>
+                    <% errorMsg.forEach(function (error) { %>   
                             <% if(error.path==="registerSuccess" ) { %>
-                                <p class="text text-success">
+                                <div class="alert alert-success" role="alert">
                                     <%= error.msg %>
-                                </p>
-                                <% } %>
-                                    <% }); %>
-                                        <% } %>
-                </div>
+                                </div>
+                            <% } %>
+                    <% }); %>
+                 <% } %>
+
+                <!--Error message-->
+                <!-- <% if(errorMsg) { %>
+                    <% errorMsg.filter(function (error) { %>
+                            <% if(error.path !=="registerSuccess" ) { %>
+                                <div class="alert alert-danger" role="alert">
+                                    <%= error.msg %>
+                                </div>
+                             <% } %>
+                    <% }); %>
+                <% } %>   -->
+                
+                <!-- Registration failed-->
                 <div>
                     <% if(errorMsg) { %>
                         <% errorMsg.forEach(function (error) { %>
@@ -49,14 +62,14 @@
                                         <% } %>
                 </div>
                 <form action="/registration" method="post">
-                    <div class="input-group mt-2">
+                    <div class="mt-2">
                         <input type="text" class="form-control" placeholder="Full name" name="fullName" id="fullName"
                             value="<%= FormData.fullName ? FormData.fullName : '' %>">
-                        <div class="input-group-append">
+                        <!-- <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div>
                         <% if(errorMsg) { %>
@@ -69,14 +82,14 @@
                                         <% }) %>
                                             <% } %>
                     </div>
-                    <div class="input-group mt-2">
+                    <div class="mt-2">
                         <input type="email" class="form-control" placeholder="Email" name="email" id="email"
                             value="<%= FormData.email ? FormData.email : '' %>">
-                        <div class="input-group-append">
+                        <!-- <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div>
                         <% if(errorMsg) { %>
@@ -110,8 +123,8 @@
                                             <% } %>
                     </div>
                     <div class="input-group mt-2">
-                        <input type="password" class="form-control" placeholder="Retype password" name="confirmPassword"
-                            id="confirmPassword">
+                        <input type="password" class="form-control" placeholder="Confirm password"
+                            name="confirmPassword" id="confirmPassword">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -132,8 +145,8 @@
                     <div class="row mt-2">
                         <div class="col-8">
                             <div class="icheck-primary">
-                                <input type="checkbox" id="agreeTerms" name="terms" value="agree" id="terms" >
-                                <label for="agreeTerms">
+                                <input type="checkbox" name="terms" value="agree" id="terms">
+                                <label for="terms">
                                     I agree to the <a href="#">terms</a>
                                 </label>
                             </div>

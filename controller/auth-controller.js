@@ -186,6 +186,110 @@ const dashboard = (req, res) => {
     res.render('dashboard');
 }
 
+
+// forgotPassword GET
+const forgotPassword = (req, res) => {
+    res.render('auth/forgotpassword', {
+        errorMsg: [],
+        FormData: {}
+    }
+    );
+};
+
+// forgotPassword POST
+const forgotPasswordPage = async (req, res) => {
+    try {
+        const errorMsg = [];
+        const error = validationResult(req);
+        if (!error.isEmpty()) {
+            error.array().forEach((err) => {
+                errorMsg.push({
+                    param: err.param,
+                    path: err.path,
+                    value: err.value,
+                    msg: err.msg
+                });
+            });
+            return res.render('auth/forgotpassword', {
+                errorMsg,
+                FormData: req.body
+            })
+        }
+
+        const { email } = req.body;
+        const userEmailCheck = await users.findOne({ where: { email } });
+        if (!userEmailCheck) {
+            errorMsg.push({
+                path: "email",
+                msg: "Email does not exist"
+            });
+            return res.render('auth/forgotpassword', {
+                errorMsg,
+                FormData: req.body
+            })
+        }
+        // res.redirect(`/recoverpassword/${userEmailCheck.id}`);
+    } catch (error) {
+        console.error("error in database")
+    }
+}
+
+// RecoverPassword GET
+const recoverPassword = (req, res) => {
+    const id = req.params.id;
+    res.render("auth/recoverpassword", {
+        userid: id,
+        errorMsg: [],
+        FormData: {}
+    });
+};
+
+// RecoverPassword POST
+const changePasswordPage = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const errorMsg = [];
+        const error = validationResult(req);
+        if (!error.isEmpty()) {
+            error.array().forEach((err) => {
+                errorMsg.push({
+                    param: err.param,
+                    path: err.path,
+                    value: err.value,
+                    msg: err.msg
+                })
+            })
+            return res.render('auth/recoverpassword', {
+                userid: id,
+                errorMsg,
+                FormData: req.body
+            })
+        }
+        
+        const { password } = req.body;
+
+        const hashPassword = await bcrypt.hash(password, 10);
+        const NewPassword = await users.update(
+            { password: hashPassword },
+            { where: { id } }
+        );
+
+        if (NewPassword[0] > 0) {
+            return res.redirect('/login')
+        } else {
+            errorMsg.push({
+                msg: "Password update failed"
+            })
+            return res.render('auth/recoverpassword', {
+                errorMsg,
+                userid: id,
+                FormData: req.body
+            })
+        }
+    } catch (error) {
+        console.error("Password update failed", error);
+    }
+}
 // Logout and session delete
 const logout = async (req, res) => {
 
@@ -202,4 +306,15 @@ const logout = async (req, res) => {
 
 }
 
-module.exports = { registration, registerPage, loginPage, login, dashboard, logout }
+module.exports = {
+    registration,
+    registerPage,
+    loginPage,
+    login,
+    dashboard,
+    logout,
+    forgotPassword,
+    recoverPassword,
+    forgotPasswordPage,
+    changePasswordPage
+}
