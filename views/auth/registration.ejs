@@ -31,8 +31,9 @@
                 <% if(errorMsg) { %>
                     <% errorMsg.forEach(function (error) { %>   
                             <% if(error.path==="registerSuccess" ) { %>
-                                <div class="alert alert-success" role="alert">
+                                <div class="alert alert-success" id="toggle_close" role="alert">
                                     <%= error.msg %>
+                                    <span class="fas fa-times" id="alert_box"></span>
                                 </div>
                             <% } %>
                     <% }); %>
@@ -196,6 +197,7 @@
     <script src="/js/adminlte.min.js"></script>
 
     <script src="/js/password.js"></script>
+    <script src="/js/close.js"></script>
 </body>
 
 </html>
