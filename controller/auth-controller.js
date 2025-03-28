@@ -52,7 +52,7 @@ const registration = async (req, res) => {
         if (checkEmail) {
             errorMsg.push({
                 param: "email",
-                msg: "User already Exists",
+                msg: "Email already Exists",
                 value: email,
                 path: "email"
             })
@@ -79,8 +79,7 @@ const registration = async (req, res) => {
             })
         }
         return res.render('auth/registration', {
-            errorMsg,
-            FormData: req.body
+            errorMsg
         })
     } catch (error) {
         console.error("Registration Error:", error);
@@ -117,7 +116,7 @@ const login = async (req, res) => {
             })
         }
 
-        const { email, password, rememberMe } = req.body;
+        const { email, password } = req.body;
 
         const checkUser = await users.findOne({ where: { email } });
         if (!checkUser) {
@@ -143,16 +142,16 @@ const login = async (req, res) => {
             });
         }
 
-        if (!rememberMe) {
-            errorMsg.push({
-                path: "rememberMe",
-                msg: "You must select Remember Me to continue"
-            })
-            return res.render('auth/login', {
-                errorMsg,
-                FormData: req.body
-            })
-        }
+        // if (!rememberMe) {
+        //     errorMsg.push({
+        //         path: "rememberMe",
+        //         msg: "You must select Remember Me to continue"
+        //     })
+        //     return res.render('auth/login', {
+        //         errorMsg,
+        //         FormData: req.body
+        //     })
+        // }
 
         // Store session
         req.session.users = { id: checkUser.id, name: checkUser.fullName };

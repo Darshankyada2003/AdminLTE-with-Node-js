@@ -11,3 +11,18 @@ document.getElementById('toggle-password').addEventListener('click', function ()
         toggleIcon.classList.add('fa-eye')
     }
 })
+
+document.getElementById('toggle-confirmPassword').addEventListener('click', function () {
+
+    const confirmPasswordInput = document.getElementById('confirmPassword-Input');
+    const toggleIcon = document.getElementById('toggle-confirmPasswordIcon');
+    if (confirmPasswordInput.type === "password") {
+        confirmPasswordInput.type = 'text';
+        toggleIcon.classList.remove('fa-eye');
+        toggleIcon.classList.add('fa-eye-slash')
+    } else {
+        confirmPasswordInput.type = "password";
+        toggleIcon.classList.remove('fa-eye-slash');
+        toggleIcon.classList.add('fa-eye')
+    }
+})

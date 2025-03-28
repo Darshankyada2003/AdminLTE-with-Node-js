@@ -13,7 +13,7 @@ const validationRegister = [
 const validationLogin = [
     check("email", "Email is required").notEmpty(),
     check("password", "password is required").notEmpty(),
-    check("remember", "Remember me is required").notEmpty()
+    // check("remember", "Remember me is required").notEmpty()
 ]
 
 const validationForgotpassword = [
