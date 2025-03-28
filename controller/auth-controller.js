@@ -180,12 +180,6 @@ const loginPage = (req, res) => {
     })
 }
 
-// Dashboard GET
-const dashboard = (req, res) => {
-    res.render('dashboard');
-}
-
-
 // forgotPassword GET
 const forgotPassword = (req, res) => {
     res.render('auth/forgotpassword', {
@@ -310,7 +304,6 @@ module.exports = {
     registerPage,
     loginPage,
     login,
-    dashboard,
     logout,
     forgotPassword,
     recoverPassword,

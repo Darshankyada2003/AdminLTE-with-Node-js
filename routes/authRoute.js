@@ -5,11 +5,10 @@ const authMiddlerware = require('../middleware/auth-middleware');
 const router = express.Router();
 
 //GET
-router.get("/", authMiddlerware.isAuthenticated, authController.dashboard);
 router.get("/login", authMiddlerware.Authenticated, authController.loginPage);
 router.get("/registration", authMiddlerware.Authenticated, authController.registerPage);
 router.get("/forgotpassword", authMiddlerware.Authenticated, authController.forgotPassword);
-router.get("/recoverpassword/:id", authMiddlerware.Authenticated, authController.recoverPassword);
+router.get("/recoverpassword/:id", authMiddlerware.isAuthenticated, authController.recoverPassword);
 router.get('/logout', authController.logout)
 
 //POST
