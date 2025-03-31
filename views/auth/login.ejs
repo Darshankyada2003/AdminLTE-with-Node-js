@@ -13,8 +13,23 @@
     <link rel="stylesheet" href="/css/all.min.css">
     <!-- icheck bootstrap -->
     <link rel="stylesheet" href="/css/icheck-bootstrap.min.css">
-    <!-- Theme style -->
+    Theme style
     <link rel="stylesheet" href="/css/adminlte.min.css">
+
+    <style>
+        label.error {
+            color: red;
+            font-size: 14px;
+            font-weight: 400 !important;
+            font-style: italic;
+        }
+        .error-message {
+            color: red;
+            font-size: 14px;
+            font-weight: 400 !important;
+            font-style: italic;
+        }
+    </style>
 </head>
 
 <body class="hold-transition login-page">
@@ -27,15 +42,14 @@
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
 
-                <form action="/login" method="post">
-                    <div class="mt-2">
+                <form action="/login" method="post" id="LoginForm">
+                    <div class="input-group mt-2">
                         <input type="email" class="form-control" placeholder="Email" name="email" id="email"
                             value="<%= FormData.email ? FormData.email : ''  %>">
-                        <!-- <div class="input-group-append">
+                        <div class="input-group-append">
                             <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                     <div>
                         <% if(errorMsg) { errorMsg.forEach((err)=> {
@@ -116,16 +130,11 @@
     <script src="/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="/js/adminlte.min.js"></script>
-
+    <!-- Password toggle  -->
     <script src="/js/password.js"></script>
+
+    <!-- jquery script-->
+    <%- include('../include/script.ejs') %>
 </body>
 
 </html>
-
-<style>
-    .error-message {
-        color: red;
-        font-size: 12px;
-        display: block;
-    }
-</style>
