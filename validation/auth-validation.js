@@ -20,7 +20,7 @@ const validationForgotpassword = [
     check("email", "Email is required").notEmpty()
 ]
 
-const validationRecoverPassword = [
+const validationChangepassword = [
     check("password", "Password must be at least 6 character long").isLength({ min: 6 }),
     check("confirmPassword", "Does not match password").custom(
         (value, { req }) => value === req.body.password
@@ -31,5 +31,5 @@ module.exports = {
     validationRegister,
     validationLogin,
     validationForgotpassword,
-    validationRecoverPassword
+    validationChangepassword
 }

@@ -221,26 +221,30 @@ const forgotPasswordPage = async (req, res) => {
                 FormData: req.body
             })
         }
-        // res.redirect(`/recoverpassword/${userEmailCheck.id}`);
+        // res.redirect(`/changepassword/${userEmailCheck.id}`);
     } catch (error) {
         console.error("error in database")
     }
 }
 
-// RecoverPassword GET
-const recoverPassword = (req, res) => {
+// changePassword GET
+const changePassword = (req, res) => {
     const id = req.params.id;
-    res.render("auth/recoverpassword", {
+    const user = req.session.users
+    res.render("auth/changepassword", {
+        title: "ChangePasswords",
         userid: id,
+        user,
         errorMsg: [],
         FormData: {}
     });
 };
 
-// RecoverPassword POST
+// changePassword POST
 const changePasswordPage = async (req, res) => {
     try {
         const id = req.params.id;
+        const user = req.session.users;
         const errorMsg = [];
         const error = validationResult(req);
         if (!error.isEmpty()) {
@@ -252,9 +256,10 @@ const changePasswordPage = async (req, res) => {
                     msg: err.msg
                 })
             })
-            return res.render('auth/recoverpassword', {
+            return res.render('auth/changepassword', {
                 userid: id,
                 errorMsg,
+                user,
                 FormData: req.body
             })
         }
@@ -273,9 +278,10 @@ const changePasswordPage = async (req, res) => {
             errorMsg.push({
                 msg: "Password update failed"
             })
-            return res.render('auth/recoverpassword', {
+            return res.render('auth/changepassword', {
                 errorMsg,
                 userid: id,
+                user,
                 FormData: req.body
             })
         }
@@ -306,7 +312,7 @@ module.exports = {
     login,
     logout,
     forgotPassword,
-    recoverPassword,
+    changePassword,
     forgotPasswordPage,
     changePasswordPage
 }

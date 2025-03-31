@@ -9,9 +9,8 @@ const dashboardRouter = require('./routes/dashboardRoute')
 
 const app = express();
 
-app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
+app.use(express.json());
 
 // middleware route access
 app.use((req, res, next) => {
