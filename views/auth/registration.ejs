@@ -15,6 +15,21 @@
     <link rel="stylesheet" href="/css/icheck-bootstrap.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="/css/adminlte.min.css">
+    <style>
+        .error-message {
+            color: red;
+            font-size: 14px;
+            font-weight: 400 !important;
+            font-style: italic;
+        }
+
+        label.error {
+            color: red;
+            font-size: 14px;
+            font-weight: 400 !important;
+            font-style: italic;
+        }
+    </style>
 </head>
 
 <body class="hold-transition register-page">
@@ -26,21 +41,21 @@
         <div class="card">
             <div class="card-body register-card-body">
                 <p class="login-box-msg">Register a new membership</p>
-                
+
                 <!--Success message-->
                 <% if(errorMsg) { %>
-                    <% errorMsg.forEach(function (error) { %>   
-                            <% if(error.path==="registerSuccess" ) { %>
-                                <div class="alert alert-success" id="toggle_close" role="alert">
-                                    <%= error.msg %>
+                    <% errorMsg.forEach(function (error) { %>
+                        <% if(error.path==="registerSuccess" ) { %>
+                            <div class="alert alert-success" id="toggle_close" role="alert">
+                                <%= error.msg %>
                                     <span class="fas fa-times" id="alert_box"></span>
-                                </div>
+                            </div>
                             <% } %>
-                    <% }); %>
-                 <% } %>
+                                <% }); %>
+                                    <% } %>
 
-                <!--Error message-->
-                <!-- <% if(errorMsg) { %>
+                                        <!--Error message-->
+                                        <!-- <% if(errorMsg) { %>
                     <% errorMsg.filter(function (error) { %>
                             <% if(error.path !=="registerSuccess" ) { %>
                                 <div class="alert alert-danger" role="alert">
@@ -49,140 +64,144 @@
                              <% } %>
                     <% }); %>
                 <% } %>   -->
-                
-                <!-- Registration failed-->
-                <div>
-                    <% if(errorMsg) { %>
-                        <% errorMsg.forEach(function (error) { %>
-                            <% if(error.path==="registerFailed" ) { %>
-                                <p class="text text-danger">
-                                    <%= error.msg %>
-                                </p>
-                                <% } %>
-                                    <% }); %>
-                                        <% } %>
-                </div>
-                <form action="/registration" method="post">
-                    <div class="mt-2">
-                        <input type="text" class="form-control" placeholder="Full name" name="fullName" id="fullName"
-                            value="<%= FormData.fullName ? FormData.fullName : '' %>">
-                        <!-- <div class="input-group-append">
+
+                                        <!-- Registration failed-->
+                                        <div>
+                                            <% if(errorMsg) { %>
+                                                <% errorMsg.forEach(function (error) { %>
+                                                    <% if(error.path==="registerFailed" ) { %>
+                                                        <p class="text text-danger">
+                                                            <%= error.msg %>
+                                                        </p>
+                                                        <% } %>
+                                                            <% }); %>
+                                                                <% } %>
+                                        </div>
+                                        <form action="/registration" method="post" id="RegisterForm">
+                                            <div class="input-group mt-2">
+                                                <input type="text" class="form-control" placeholder="Full name"
+                                                    name="fullName" id="fullName"
+                                                    value="<%= FormData.fullName ? FormData.fullName : '' %>">
+                                                <!-- <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
                             </div>
                         </div> -->
-                    </div>
-                    <div>
-                        <% if(errorMsg) { %>
-                            <% errorMsg.forEach(function(error) {%>
-                                <% if(error.path==="fullName" ) { %>
-                                    <span class="error-message">
-                                        <%= error.msg %>
-                                    </span>
-                                    <% } %>
-                                        <% }) %>
-                                            <% } %>
-                    </div>
-                    <div class="mt-2">
-                        <input type="email" class="form-control" placeholder="Email" name="email" id="email"
-                            value="<%= FormData.email ? FormData.email : '' %>">
-                        <!-- <div class="input-group-append">
+                                            </div>
+                                            <div>
+                                                <% if(errorMsg) { %>
+                                                    <% errorMsg.forEach(function(error) {%>
+                                                        <% if(error.path==="fullName" ) { %>
+                                                            <span class="error-message">
+                                                                <%= error.msg %>
+                                                            </span>
+                                                            <% } %>
+                                                                <% }) %>
+                                                                    <% } %>
+                                            </div>
+                                            <div class="input-group mt-2">
+                                                <input type="email" class="form-control" placeholder="Email"
+                                                    name="email" id="email"
+                                                    value="<%= FormData.email ? FormData.email : '' %>">
+                                                <!-- <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
                             </div>
                         </div> -->
-                    </div>
-                    <div>
-                        <% if(errorMsg) { %>
-                            <% errorMsg.forEach(function(error) {%>
-                                <% if(error.path==="email" ) { %>
-                                    <span class="error-message">
-                                        <%= error.msg %>
-                                    </span>
-                                    <% } %>
-                                        <% }) %>
-                                            <% } %>
-                    </div>
-                    <div class="input-group mt-2">
-                        <input type="password" class="form-control" placeholder="Password" name="password"
-                            id="password-input">
-                        <div class="input-group-append">
-                            <div class="input-group-text" id="toggle-password">
-                                <span class="fas fa-eye" id="toggle-icon"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <% if(errorMsg) { %>
-                            <% errorMsg.forEach(function(error) { %>
-                                <% if(error.path==="password" ) { %>
-                                    <span class="error-message">
-                                        <%= error.msg %>
-                                    </span>
-                                    <% } %>
-                                        <% }) %>
-                                            <% } %>
-                    </div>
-                    <div class="input-group mt-2">
-                        <input type="password" class="form-control" placeholder="Confirm password"
-                            name="confirmPassword" id="confirmPassword-Input">
-                        <div class="input-group-append" >
-                            <div class="input-group-text" id="toggle-confirmPassword">
-                                <span class="fas fa-eye" id="toggle-confirmPasswordIcon"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <% if(errorMsg) { %>
-                            <% errorMsg.forEach(function(error) {%>
-                                <% if(error.path==="confirmPassword" ){ %>
-                                    <span class="error-message">
-                                        <%= error.msg %>
-                                    </span>
-                                    <% } %>
-                                        <% }) %>
-                                            <% } %>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-8">
-                            <div class="icheck-primary">
-                                <input type="checkbox" name="terms" value="agree" id="terms">
-                                <label for="terms">
-                                    I agree to the <a href="#">terms</a>
-                                </label>
-                            </div>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-4">
-                            <input type="submit" class="btn btn-primary btn-block" value="Register">
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                    <% if(errorMsg){ %>
-                        <% errorMsg.forEach((error)=> {%>
-                            <% if(error.path==="terms" ) {%>
-                                <span class="error-message">
-                                    <%= error.msg %>
-                                </span>
-                                <% } %>
-                                    <% }) %>
-                                        <% } %>
-                </form>
+                                            </div>
+                                            <div>
+                                                <% if(errorMsg) { %>
+                                                    <% errorMsg.forEach(function(error) {%>
+                                                        <% if(error.path==="email" ) { %>
+                                                            <span class="error-message">
+                                                                <%= error.msg %>
+                                                            </span>
+                                                            <% } %>
+                                                                <% }) %>
+                                                                    <% } %>
+                                            </div>
+                                            <div class="input-group mt-2">
+                                                <input type="password" class="form-control" placeholder="Password"
+                                                    name="password" id="password-input">
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text" id="toggle-password">
+                                                        <span class="fas fa-eye" id="toggle-icon"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <% if(errorMsg) { %>
+                                                    <% errorMsg.forEach(function(error) { %>
+                                                        <% if(error.path==="password" ) { %>
+                                                            <span class="error-message">
+                                                                <%= error.msg %>
+                                                            </span>
+                                                            <% } %>
+                                                                <% }) %>
+                                                                    <% } %>
+                                            </div>
+                                            <div class="input-group mt-2">
+                                                <input type="password" class="form-control"
+                                                    placeholder="Confirm password" name="confirmPassword"
+                                                    id="confirmPassword-Input">
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text" id="toggle-confirmPassword">
+                                                        <span class="fas fa-eye" id="toggle-confirmPasswordIcon"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <% if(errorMsg) { %>
+                                                    <% errorMsg.forEach(function(error) {%>
+                                                        <% if(error.path==="confirmPassword" ){ %>
+                                                            <span class="error-message">
+                                                                <%= error.msg %>
+                                                            </span>
+                                                            <% } %>
+                                                                <% }) %>
+                                                                    <% } %>
+                                            </div>
+                                            <div class="row input-group mt-2">
+                                                <div class="col-8">
+                                                    <div class="icheck-primary">
+                                                        <input type="checkbox" name="terms" value="terms" id="terms">
+                                                        <label for="terms">
+                                                            I agree to the <a href="#">terms</a>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <!-- /.col -->
+                                                <div class="col-4">
+                                                    <input type="submit" class="btn btn-primary btn-block"
+                                                        value="Register">
+                                                </div>
+                                                <!-- /.col -->
+                                            </div>
+                                            <% if(errorMsg){ %>
+                                                <% errorMsg.forEach((error)=> {%>
+                                                    <% if(error.path==="terms" ) {%>
+                                                        <span class="error-message">
+                                                            <%= error.msg %>
+                                                        </span>
+                                                        <% } %>
+                                                            <% }) %>
+                                                                <% } %>
+                                        </form>
 
-                <div class="social-auth-links text-center">
-                    <p>- OR -</p>
-                    <a href="#" class="btn btn-block btn-primary">
-                        <i class="fab fa-facebook mr-2"></i>
-                        Sign up using Facebook
-                    </a>
-                    <a href="#" class="btn btn-block btn-danger">
-                        <i class="fab fa-google-plus mr-2"></i>
-                        Sign up using Google+
-                    </a>
-                </div>
+                                        <div class="social-auth-links text-center">
+                                            <p>- OR -</p>
+                                            <a href="#" class="btn btn-block btn-primary">
+                                                <i class="fab fa-facebook mr-2"></i>
+                                                Sign up using Facebook
+                                            </a>
+                                            <a href="#" class="btn btn-block btn-danger">
+                                                <i class="fab fa-google-plus mr-2"></i>
+                                                Sign up using Google+
+                                            </a>
+                                        </div>
 
-                <a href="/login" class="text-center">I already have a
-                    membership</a>
+                                        <a href="/login" class="text-center">I already have a
+                                            membership</a>
             </div>
             <!-- /.form-box -->
         </div><!-- /.card -->
@@ -198,14 +217,9 @@
 
     <script src="/js/password.js"></script>
     <script src="/js/close.js"></script>
+
+    <!--jQuery validation-->
+    <%- include('../include/script.ejs') %>
 </body>
 
 </html>
-
-<style>
-    .error-message {
-        color: red;
-        font-size: 12px;
-        display: block;
-    }
-</style>
