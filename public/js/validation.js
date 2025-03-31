@@ -1,6 +1,7 @@
 $(document).ready(function () {
     const loginForm = $("#LoginForm");
     const RegisterForm = $("#RegisterForm");
+    const ChangePassword = $("#ChangePasswordForm")
 
     loginForm.validate({
         rules: {
@@ -57,6 +58,28 @@ $(document).ready(function () {
             },
             terms: {
                 required: "Agree is required"
+            }
+        },
+        errorPlacement: function (error, element) {
+            error.insertAfter(element.closest('.input-group'));
+        }
+    });
+
+    ChangePassword.validate({
+        rules: {
+            password: {
+                required: true
+            },
+            confirmPassword: {
+                required: true
+            }
+        },
+        messages: {
+            password: {
+                required: "Password is required"
+            },
+            confirmPassword: {
+                required: "ConfirmPassword is required"
             }
         },
         errorPlacement: function (error, element) {
