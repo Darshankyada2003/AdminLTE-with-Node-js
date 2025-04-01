@@ -231,7 +231,7 @@ const forgotPasswordPage = async (req, res) => {
 const changePassword = (req, res) => {
     // const id = req.params.id;
     const user = req.session.users
-    res.render("auth/changepassword", {
+    res.render("admin/changepassword", {
         title: "ChangePasswords",
         // userid: id,
         user,
@@ -256,7 +256,7 @@ const changePasswordPage = async (req, res) => {
                     msg: err.msg
                 })
             })
-            return res.render('auth/changepassword', {
+            return res.render('admin/changepassword', {
                 // userid: id,
                 errorMsg,
                 user,
@@ -279,7 +279,7 @@ const changePasswordPage = async (req, res) => {
                 path : "passwordUpdated",
                 msg: "Password update successfull.!"
             })
-            return res.render('auth/changepassword', {
+            return res.render('admin/changepassword', {
                 errorMsg,
                 user
             })
@@ -287,7 +287,7 @@ const changePasswordPage = async (req, res) => {
             errorMsg.push({
                 msg: "Password update failed"
             })
-            return res.render('auth/changepassword', {
+            return res.render('admin/changepassword', {
                 errorMsg,
                 userid: id,
                 user,
