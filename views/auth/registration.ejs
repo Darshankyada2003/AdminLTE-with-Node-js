@@ -80,8 +80,8 @@
                                         <form action="/registration" method="post" id="RegisterForm">
                                             <div class="input-group mt-2">
                                                 <input type="text" class="form-control" placeholder="Full name"
-                                                    name="fullName" id="fullName"
-                                                    value="<%= FormData.fullName ? FormData.fullName : '' %>">
+                                                    name="f_name" id="f_name"
+                                                    value="<%= FormData.f_name ? FormData.f_name : '' %>">
                                                 <div class="input-group-append">
                                                     <div class="input-group-text">
                                                         <!-- <span class="fas fa-user"></span> -->
@@ -91,7 +91,7 @@
                                             <div>
                                                 <% if(errorMsg) { %>
                                                     <% errorMsg.forEach(function(error) {%>
-                                                        <% if(error.path==="fullName" ) { %>
+                                                        <% if(error.path==="f_name" ) { %>
                                                             <span class="error-message">
                                                                 <%= error.msg %>
                                                             </span>

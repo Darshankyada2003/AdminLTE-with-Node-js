@@ -28,7 +28,7 @@ $(document).ready(function () {
 
     RegisterForm.validate({
         rules: {
-            fullName: {
+            f_name: {
                 required: true
             },
             email: {
@@ -47,7 +47,7 @@ $(document).ready(function () {
             }
         },
         messages: {
-            fullName: {
+            f_name: {
                 required: "Name is required"
             },
             email: {

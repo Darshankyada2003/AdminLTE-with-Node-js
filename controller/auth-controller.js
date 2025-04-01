@@ -22,7 +22,7 @@ const registration = async (req, res) => {
                     FormData: req.body
                 });
         }
-        const { fullName, email, password, confirmPassword, terms } = req.body;
+        const { f_name, email, password, confirmPassword, terms } = req.body;
 
         if (password !== confirmPassword) {
             errorMsg.push({
@@ -63,7 +63,7 @@ const registration = async (req, res) => {
         }
         const hashPassword = await bcrypt.hash(password, 10);
         const createUser = await users.create({
-            fullName,
+            f_name,
             email,
             password: hashPassword
         });
@@ -154,11 +154,11 @@ const login = async (req, res) => {
         // }
 
         // Store session
-        req.session.users = { id: checkUser.id, name: checkUser.fullName };
+        req.session.users = { id: checkUser.id, name: checkUser.f_name };
 
         // Store user data in a cookie
         const userData = {
-            name: checkUser.fullName,
+            name: checkUser.f_name,
             email: checkUser.email
         };
 

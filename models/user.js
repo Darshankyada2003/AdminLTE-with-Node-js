@@ -8,15 +8,39 @@ const users = sequelize.define('users', {
         autoIncrement: true,
         primaryKey: true
     },
-    fullName: {
+    f_name: {
         type: Sequelize.STRING,
-        allowNull :false
+        allowNull: false
+    },
+    l_name: {
+        type: Sequelize.STRING,
+        allowNull: true
     },
     email: {
         type: Sequelize.STRING,
     },
     password: {
         type: Sequelize.STRING
+    },
+    image: {
+        type: Sequelize.STRING,
+        allowNull: true
+    },
+    number: {
+        type: Sequelize.STRING,
+        allowNull: true
+    },
+    dob: {
+        type: Sequelize.STRING,
+        allowNull: true
+    },
+    gender: {
+        type: Sequelize.STRING,
+        allowNull: true
+    },
+    hobbies: {
+        type: Sequelize.STRING,
+        allowNull: true
     }
 }, {
     timestamps: false,
