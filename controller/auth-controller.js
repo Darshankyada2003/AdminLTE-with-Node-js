@@ -229,11 +229,11 @@ const forgotPasswordPage = async (req, res) => {
 
 // changePassword GET
 const changePassword = (req, res) => {
-    const id = req.params.id;
+    // const id = req.params.id;
     const user = req.session.users
     res.render("auth/changepassword", {
         title: "ChangePasswords",
-        userid: id,
+        // userid: id,
         user,
         errorMsg: [],
         FormData: {}
@@ -243,7 +243,7 @@ const changePassword = (req, res) => {
 // changePassword POST
 const changePasswordPage = async (req, res) => {
     try {
-        const id = req.params.id;
+        // const id = req.params.id;
         const user = req.session.users;
         const errorMsg = [];
         const error = validationResult(req);
@@ -257,19 +257,21 @@ const changePasswordPage = async (req, res) => {
                 })
             })
             return res.render('auth/changepassword', {
-                userid: id,
+                // userid: id,
                 errorMsg,
                 user,
                 FormData: req.body
             })
         }
-        
+
         const { password } = req.body;
+
+        const userid = user.id;
 
         const hashPassword = await bcrypt.hash(password, 10);
         const NewPassword = await users.update(
             { password: hashPassword },
-            { where: { id } }
+            { where: { id: userid } }
         );
 
         if (NewPassword[0] > 0) {
