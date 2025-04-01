@@ -5,7 +5,8 @@ const session = require('express-session');
 const file_store = require('session-file-store')(session);
 
 const authRouter = require('./routes/authRoute');
-const dashboardRouter = require('./routes/dashboardRoute')
+const dashboardRouter = require('./routes/dashboardRoute');
+const changePasswordRouter = require('./routes/changpasswordRoute');
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use(session({
 //Route
 app.use('/', authRouter);
 app.use('/', dashboardRouter);
+app.use('/', changePasswordRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
