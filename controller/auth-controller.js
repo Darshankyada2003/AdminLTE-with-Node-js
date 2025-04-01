@@ -275,7 +275,14 @@ const changePasswordPage = async (req, res) => {
         );
 
         if (NewPassword[0] > 0) {
-            return res.redirect('/')
+            errorMsg.push({
+                path : "passwordUpdated",
+                msg: "Password update successfull.!"
+            })
+            return res.render('auth/changepassword', {
+                errorMsg,
+                user
+            })
         } else {
             errorMsg.push({
                 msg: "Password update failed"

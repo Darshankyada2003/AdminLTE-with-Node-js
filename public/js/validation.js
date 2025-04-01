@@ -1,7 +1,8 @@
 $(document).ready(function () {
     const loginForm = $("#LoginForm");
     const RegisterForm = $("#RegisterForm");
-    const ChangePassword = $("#ChangePasswordForm")
+    const ChangePassword = $("#ChangePasswordForm");
+    const ForgotPassword = $("#ForgotPasswordForm")
 
     loginForm.validate({
         rules: {
@@ -34,10 +35,12 @@ $(document).ready(function () {
                 required: true
             },
             password: {
-                required: true
+                required: true,
+                minlength: 6
             },
             confirmPassword: {
-                required: true
+                required: true,
+                equalTo: "#password-input"
             },
             terms: {
                 required: true
@@ -51,10 +54,12 @@ $(document).ready(function () {
                 required: "Email is required"
             },
             password: {
-                required: "Password is required"
+                required: "Password is required",
+                minlength: "Your password must be at least 6 characters long"
             },
             confirmPassword: {
-                required: "ConfirmPassword is required"
+                required: "ConfirmPassword is required",
+                equalTo: "Password does not match"
             },
             terms: {
                 required: "Agree is required"
@@ -68,22 +73,42 @@ $(document).ready(function () {
     ChangePassword.validate({
         rules: {
             password: {
-                required: true
+                required: true,
+                minlength: 6
             },
             confirmPassword: {
-                required: true
+                required: true,
+                equalTo: "#password-input"
             }
         },
         messages: {
             password: {
-                required: "Password is required"
+                required: "Password is required",
+                minlength: "Your password must be at least 6 characters long"
             },
             confirmPassword: {
-                required: "ConfirmPassword is required"
+                required: "ConfirmPassword is required",
+                equalTo: "Password does not match"
             }
         },
         errorPlacement: function (error, element) {
             error.insertAfter(element.closest('.input-group'));
+        }
+    });
+
+    ForgotPassword.validate({
+        rules: {
+            email: {
+                required: true
+            }
+        },
+        messages: {
+            email: {
+                required: "Email is required"
+            }
+        },
+        errorPlacement: function (error, element) {
+            error.insertAfter(element.closest(".input-group"));
         }
     })
 });

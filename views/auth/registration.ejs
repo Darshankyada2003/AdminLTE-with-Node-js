@@ -48,14 +48,14 @@
                         <% if(error.path==="registerSuccess" ) { %>
                             <div class="alert alert-success" id="toggle_close" role="alert">
                                 <%= error.msg %>
-                                    <span class="fas fa-times" id="alert_box"></span>
+                                    <span class="fas fa-times float-right mt-1" id="alert_box"></span>
                             </div>
                             <% } %>
                                 <% }); %>
                                     <% } %>
 
-                                        <!--Error message-->
-                                        <!-- <% if(errorMsg) { %>
+                <!--Error message-->
+            <!--<% if(errorMsg) { %>
                     <% errorMsg.filter(function (error) { %>
                             <% if(error.path !=="registerSuccess" ) { %>
                                 <div class="alert alert-danger" role="alert">
@@ -82,11 +82,11 @@
                                                 <input type="text" class="form-control" placeholder="Full name"
                                                     name="fullName" id="fullName"
                                                     value="<%= FormData.fullName ? FormData.fullName : '' %>">
-                                                <!-- <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-user"></span>
-                            </div>
-                        </div> -->
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text">
+                                                        <!-- <span class="fas fa-user"></span> -->
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div>
                                                 <% if(errorMsg) { %>
@@ -103,11 +103,11 @@
                                                 <input type="email" class="form-control" placeholder="Email"
                                                     name="email" id="email"
                                                     value="<%= FormData.email ? FormData.email : '' %>">
-                                                <!-- <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
-                            </div>
-                        </div> -->
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text">
+                                                        <!-- <span class="fas fa-envelope"></span> -->
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div>
                                                 <% if(errorMsg) { %>
