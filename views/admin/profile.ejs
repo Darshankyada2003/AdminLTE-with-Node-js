@@ -1,33 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include('./includes/head.ejs') %>
 
-<head>
-    <title>Profile</title>
-    <%- include('./includes/head.ejs') %>
-        <style>
-            .error-message {
-                color: red;
-                font-size: 12px;
-                display: block;
-            }
+<style>
+    label.error {
+        color: red;
+        font-weight: 400 !important;
+        font-style: italic;
+        font-size: 14px;
+        position: relative;
+        bottom: 10px;
+    }
+</style>
 
-            label.error {
-                color: red;
-                font-weight: 400 !important;
-                font-style: italic;
-                font-size: 14px;
-            }
-        </style>
-</head>
-
-<body>
+<body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-        <%- include('./includes/navbar.ejs') %>
-            <%- include('./includes/sidebar.ejs') %>
+       <!-- Navbar -->
+       <%- include('./includes/navbar.ejs') %>
+       <!-- /.navbar -->
+
+              <!--  Sidebar Container AdminLTE -->
+              <%- include('./includes/sidebar.ejs') %>
+              <!--  /.Sidebar Container AdminLTE -->
+
+              <!-- Content Wrapper. Contains page content -->
                 <div class="content-wrapper">
                     <div class="content-header">
+
                     </div>
-                    <section class="content">
+                    
+                   <section class="content">
                         <div class="container-fluid">
                             <div class="card card-dark">
                                 <div class="card-header">
@@ -35,44 +35,38 @@
                                         <h4 class="card-title">Edit Profile</h4>
                                     </div>
                                 </div>
-                                <form action="/profile" method="post" id="">
+                                <form action="/profile" method="post" id="ProfileForm">
                                     <div class="card-body">
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <label for="exampleInputFile">Image Upload :</label>
+                                                <div class="input-group">
+                                                    <input type="file" class="" id="image" name="image"
+                                                        value="<%= user.image ? user.image : "" %>">
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="row">
                                             <!--left section-->
                                             <div class="col-md-6">
                                                 <div class="card-body">
                                                     <div class="form-group">
-                                                        <label for="f_name">Firstname</label>
+                                                        <label for="f_name">First Name:</label>
                                                         <input type="text" class="form-control" id="f_name"
-                                                            name="f_name" placeholder="Enter firstname"
+                                                            name="f_name" placeholder="Enter Firstname"
                                                             value="<%= user.f_name ? user.f_name : "" %>">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="l_name">Lastname</label>
-                                                        <input type="text" class="form-control" id="l_name"
-                                                            name="l_name" placeholder="Enter Lastname"
-                                                            value="<%= user.l_name ? user.l_name : "" %>">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="exampleInputEmail1">Email address</label>
+                                                        <label for="exampleInputEmail1">Email address:</label>
                                                         <input type="email" class="form-control" id="email"
                                                             placeholder="Enter email" name="email"
                                                             value="<%= user.email ? user.email : "" %>">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="exampleInputFile">File input</label>
-                                                        <div class="input-group">
-                                                            <div class="custom-file">
-                                                                <input type="file" class="custom-file-input"
-                                                                    id="image" name="image"
-                                                                    value="<%= user.image ? user.image : "" %>">
-                                                                <label class="custom-file-label"
-                                                                    for="exampleInputFile">Choose file</label>
-                                                            </div>
-                                                            <div class="input-group-append">
-                                                                <span class="input-group-text">Upload</span>
-                                                            </div>
-                                                        </div>
+                                                        <label for="l_name">DOB:</label>
+                                                        <input type="date" class="form-control" id="dob" name="dob"
+                                                            value="<%= user.dob ? user.dob : "" %>">
                                                     </div>
                                                 </div>
                                             </div>
@@ -80,45 +74,31 @@
                                             <div class="col-md-6">
                                                 <div class="card-body">
                                                     <div class="form-group">
+                                                        <label for="l_name">Last Name:</label>
+                                                        <input type="text" class="form-control" id="l_name"
+                                                            name="l_name" placeholder="Enter Lastname"
+                                                            value="<%= user.l_name ? user.l_name: "" %>">
+                                                    </div>
+                                                    <div class="form-group">
                                                         <label for="phone">Mobile No. :</label>
                                                         <input type="tel" class="form-control" id="number" name="number"
                                                             placeholder="Enter Mobile number"
-                                                            value="<%= user.number ? user.number : "" %>">
+                                                            value="<%= user.number ? user.number: "" %>">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="hobbies">Hobbies :</label>
-                                                        <input type="text" class="form-control" id="hobbies"
-                                                            name="hobbies" placeholder="Enter Hobbies"
-                                                            value="<%= user.hobbies ? user.hobbies : "" %>">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="l_name">DOB :</label>
-                                                        <input type="date" class="form-control" id="dob" name="dob"
-                                                            value="<%= user.dob ? user.dob : "" %>">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="gender" class="col-form-label">Gender :</label>
+                                                        <label for="gender" class="col-form-label">Gender:</label>
                                                         <div class="row">
                                                             <div class="col-sm-10">
                                                                 <div class="form-check form-check-inline">
                                                                     <input type="radio" name="gender" id="male"
-                                                                        class="form-check-input" value="male"
-                                                                        <% if(user.gender === "male") {%>
-                                                                            checked
-                                                                            <% } %>
-                                                                        >
-                                                                    <label for="male"
-                                                                        class="form-check-label">Male</label>
+                                                                        class="form-check-input" value="male" <% if(user.gender === "male" ) { "checked" } %> >
+                                                                    <label for="male" class="form-check-label">Male</label>
                                                                 </div>
 
                                                                 <div class="form-check form-check-inline">
                                                                     <input type="radio" name="gender" id="female"
-                                                                        class="form-check-input" value="female"
-                                                                        <% if(user.gender === "female") {%>
-                                                                            checked
-                                                                        <% } %>>
-                                                                    <label for="female"
-                                                                        class="form-check-label">Female</label>
+                                                                        class="form-check-input" value="female" <% if(user.gender === "female" ) { "checked" } %>>
+                                                                    <label for="female" class="form-check-label">Female</label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -126,18 +106,34 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="d-flex align-items-center justify-content-center">
-                                            <button type="submit" class="btn btn-dark">Submit</button>
-                                        </div>
+                                        <button type="submit" class="btn btn-dark float-right">Submit</button>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </section>
                 </div>
-                <%- include('./includes/footer.ejs') %>
+                 <!--Footer-->
+                 <%- include('./includes/footer.ejs') %>
+                 <!-- /.Footer-->
     </div>
 
-</body>
+    <!-- jQuery -->
+    <script src="/js/jquery.min.js"></script>
 
-</html>
+    <script src="/js/jquery-ui.min.js"></script>
+    <script src="/js/password.js"></script>
+
+    <script>
+        $.widget.bridge('uibutton', $.ui.button)
+    </script>
+
+    <!-- Bootstrap 4 -->
+    <script src="/js/bootstrap.bundle.min.js"></script>
+
+    <!-- AdminLTE App -->
+    <script src="/js/adminlte.js"></script>
+
+    <!--validation jQuery-->
+    <%- include('../auth/includes/script.ejs') %>
+</body>

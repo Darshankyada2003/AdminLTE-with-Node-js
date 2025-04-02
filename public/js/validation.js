@@ -2,7 +2,8 @@ $(document).ready(function () {
     const loginForm = $("#LoginForm");
     const RegisterForm = $("#RegisterForm");
     const ChangePassword = $("#ChangePasswordForm");
-    const ForgotPassword = $("#ForgotPasswordForm")
+    const ForgotPassword = $("#ForgotPasswordForm");
+    const ProfileForm = $("#ProfileForm");
 
     loginForm.validate({
         rules: {
@@ -109,6 +110,34 @@ $(document).ready(function () {
         },
         errorPlacement: function (error, element) {
             error.insertAfter(element.closest(".input-group"));
+        }
+    });
+
+    ProfileForm.validate({
+        rules: {
+            f_name: {
+                required: true
+            },
+            l_name: {
+                required: true
+            },
+            email: {
+                required: true
+            }
+        },
+        messages: {
+            f_name: {
+                required: "First Name is required"
+            },
+            l_name: {
+                requires: "Last Name is required"
+            },
+            email: {
+                required: "Email is required"
+            }
+        },
+        errorPlacement: function (error, element) {
+            error.insertAfter(element.closest('.form-group'))
         }
     })
 });

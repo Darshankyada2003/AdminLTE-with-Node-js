@@ -22,7 +22,7 @@ const profilePage = async (req, res) => {
             { where: { id: userid } },
         );
 
-        if (updateDetail > 0) {
+        // if (updateDetail > 0) {
             const newUpdate = await users.findOne({
                 where: { id: userid }
             })
@@ -30,11 +30,11 @@ const profilePage = async (req, res) => {
             res.render('admin/profile', {
                 user: newUpdate
             });
-        } else {
-            res.status(400).json({
-                error: "update failed"
-            });
-        }
+        // } else {
+        //     res.status(400).json({
+        //         error: "update failed"
+        //     });
+        // }
 
     } catch (error) {
         console.error("user update failed..!", error)
