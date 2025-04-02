@@ -1,4 +1,4 @@
-const { validationResult } = require('express-validator');
+const { validationResult, check } = require('express-validator');
 const bcrypt = require('bcrypt')
 const users = require('../models/user');
 
@@ -153,13 +153,23 @@ const login = async (req, res) => {
         //     })
         // }
 
-        // Store session
-        req.session.users = { id: checkUser.id, name: checkUser.f_name };
-
         // Store user data in a cookie
         const userData = {
-            name: checkUser.f_name,
-            email: checkUser.email
+            f_name: checkUser.f_name,
+            l_name: checkUser.l_name,
+            email: checkUser.email,
+            image: checkUser.image,
+            number: checkUser.number,
+            dob: checkUser.dob,
+            gender: checkUser.gender,
+            hobbies: checkUser.hobbies,
+        };
+        
+        // Store session
+        req.session.users = {
+            id: checkUser.id,
+            f_name: checkUser.f_name,
+            ...userData
         };
 
         res.cookie("UserData", JSON.stringify(userData), { httpOnly: true });
