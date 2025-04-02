@@ -7,6 +7,7 @@ const file_store = require('session-file-store')(session);
 const authRouter = require('./routes/authRoute');
 const dashboardRouter = require('./routes/dashboardRoute');
 const changePasswordRouter = require('./routes/changpasswordRoute');
+const profileRouter = require('./routes/profileRoute');
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use(session({
 app.use('/', authRouter);
 app.use('/', dashboardRouter);
 app.use('/', changePasswordRouter);
+app.use('/', profileRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
