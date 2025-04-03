@@ -1,16 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const profileController = require('../controller/profile-controller');
-const authMiddleware = require('../middleware/auth-middleware')
+const authMiddleware = require('../middleware/auth-middleware');
+const userImage = require('../helper/userProfileimg');
 
-// Image multer
-// const multer = require('multer');
-// const upload = multer({ dest: "upload/" });
 
 // GET
 router.get('/profile', authMiddleware.isAuthenticated, profileController.profile);
 
 // POST
-router.post('/profile', profileController.profilePage);
+router.post('/profile', userImage.uploadImage, profileController.profilePage);
 
 module.exports = router;

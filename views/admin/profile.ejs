@@ -35,14 +35,16 @@
                                         <h4 class="card-title">Edit Profile</h4>
                                     </div>
                                 </div>
-                                <form action="/profile" method="post" id="ProfileForm">
+                                <form action="/profile" method="post" id="ProfileForm" enctype="multipart/form-data">
                                     <div class="card-body">
-                                        <div class="card-body">
+                                        <div class="d-flex align-items-center h-100 justify-content-center">
                                             <div class="form-group">
-                                                <label for="exampleInputFile">Image Upload :</label>
-                                                <div class="input-group">
-                                                    <input type="file" class="" id="image" name="image"
-                                                        value="<%= user.image ? user.image : "" %>">
+
+                                                <label for="exampleInputFile" class="ml-4">Image Upload :</label>
+                                                <div class="input-group d-flex flex-column">
+                                                    <img src="/img/userImages/<%= user.image ? user.image : ""%>" height="50" class="ml-5 rounded-circle border shadow" width="50">
+                                                    <input type="file" class="mt-2" id="image" name="image">
+                                                    <input type="hidden" name="old_image" value="<%= user.image %>">
                                                 </div>
                                             </div>
                                         </div>
