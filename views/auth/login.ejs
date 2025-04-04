@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/css/all.min.css">
     <!-- icheck bootstrap -->
     <link rel="stylesheet" href="/css/icheck-bootstrap.min.css">
-    Theme style
+    <!-- Theme style -->
     <link rel="stylesheet" href="/css/adminlte.min.css">
 
     <style>
@@ -43,13 +43,10 @@
                 <p class="login-box-msg">Sign in to start your session</p>
 
                 <form action="/login" method="post" id="LoginForm">
-                    <div class="input-group mt-2">
+                    <div class="show-err-msg mt-2">
                         <input type="email" class="form-control" placeholder="Email" name="email" id="email"
                             value="<%= FormData.email ? FormData.email : ''  %>">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                            </div>
-                        </div>
+                       
                     </div>
                     <div>
                         <% if(errorMsg) { errorMsg.forEach((err)=> {
@@ -59,7 +56,7 @@
                             </span>
                             <% } }) } %>
                     </div>
-                    <div class="input-group mt-2">
+                    <div class="show-err-msg input-group mt-2">
                         <input type="password" class="form-control" placeholder="Password" name="password"
                             id="password-input">
                         <div class="input-group-append">

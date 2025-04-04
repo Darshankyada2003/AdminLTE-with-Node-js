@@ -1,6 +1,7 @@
 const fs = require('fs');
 const sessionHelper = require('../helper/session-helper');
 const users = require('../models/user');
+const { validationResult } = require('express-validator');
 
 // GET
 const profile = async (req, res) => {
@@ -8,14 +9,26 @@ const profile = async (req, res) => {
     const hobbiesArray = user.hobbies ? user.hobbies.split(",") : [];
     res.render("admin/profile", {
         user,
-        hobbiesArray
+        hobbiesArray,
+        errorMsg: [],
     });
 };
 
 // POST
 const profilePage = async (req, res) => {
-    try {
+    const error = validationResult(req);
+    const errorMsg = [];
 
+    if (!error.isEmpty()) {
+        const errorArray = error.array();
+        return res.render('admin/profile', {
+            user: req.body,
+            hobbiesArray: req.body.hobbies,
+            errorMsg: errorArray
+        })
+    }
+    try {
+        // const errorMsg = [];
         const user = req.session.users;
         const { f_name, l_name, email, number, hobbies, dob, gender, old_image } = req.body;
         const userid = user.id;
@@ -32,11 +45,6 @@ const profilePage = async (req, res) => {
 
         const hobbiesFormate = hobbies ? (Array.isArray(hobbies) ? hobbies.join(",") : hobbies) : "null";
 
-        const userData = {
-            f_name: f_name,
-            email: email,
-            image: image
-        }
         await users.update(
             { f_name, l_name, email, image: image, number, hobbies: hobbiesFormate, dob, gender },
             { where: { id: userid } },
@@ -45,20 +53,34 @@ const profilePage = async (req, res) => {
         const newUpdate = await users.findOne({
             where: { id: userid }
         });
-
-        req.session.users = newUpdate.get({ plain: true });
+        const userData = {
+            f_name: f_name,
+            l_name: l_name,
+            email: email,
+            image: image,
+        }
+        req.session.users = newUpdate.get({ plain: true })
 
         const hobbiesArray = newUpdate.hobbies ? newUpdate.hobbies.split(",") : [];
-        res.cookie('userData', userData);
-        res.render('admin/profile', {
-            user: newUpdate,
-            hobbiesArray
-        });
+        res.cookie('UserData', userData);
+
+        if (newUpdate) {
+            errorMsg.push({
+                path: "profileEdit",
+                msg: "User Profile edit successfull.!"
+            });
+            res.render('admin/profile', {
+                user: newUpdate,
+                hobbiesArray,
+                errorMsg
+            });
+        }
 
     } catch (error) {
         console.error("user update failed..!", error)
     }
 }
+
 
 module.exports = {
     profile,

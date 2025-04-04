@@ -12,9 +12,11 @@
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="/">
                 <div class="d-flex justify-content-between">
-                    <img src="/img/user2-160x160.jpg" class="img-circle elevation-2 size-32" alt="User Image">
+                    <% if(user.image) { %>
+                        <img src="/img/userImages/<%= user.image %>" alt="" class="img-circle elevation-2 size-32">
+                    <% } %>
                     <span class="mt-1 ml-2 user-name">
-                        <%= user ? user.f_name : 'Guest' %>
+                        <%= user.f_name %> <%= user.l_name %>
                     </span>
                 </div>
             </a>

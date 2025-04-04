@@ -9,6 +9,14 @@
         position: relative;
         bottom: 10px;
     }
+    .error{
+        color: red;
+        font-weight: 400 !important;
+        font-style: italic;
+        font-size: 14px;
+        position: relative;
+        bottom: 10px;
+    }
 </style>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -35,14 +43,27 @@
                                         <h4 class="card-title">Edit Profile</h4>
                                     </div>
                                 </div>
+                                <% if(errorMsg) { %>
+                                    <% errorMsg.forEach((err) => { %>
+                                        <% if(err.path === "profileEdit") { %>
+                                                <div class="d-flex align-items-center justify-content-center h-100 mt-3">                                          
+                                                    <div class="alert alert-success w-50 text-center" id="toggle_close" role="alert">
+                                                        <%= err.msg %>
+                                                        <span class="fas fa-times float-right" id="alert_box"></span>
+                                                    </div>
+                                                </div>
+                                        <% } %>
+                                    <% }) %>    
+                                <% } %>
                                 <form action="/profile" method="post" id="ProfileForm" enctype="multipart/form-data">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center h-100 justify-content-center">
                                             <div class="form-group">
-
                                                 <label for="exampleInputFile" class="ml-4">Image Upload :</label>
                                                 <div class="input-group d-flex flex-column">
-                                                    <img src="/img/userImages/<%= user.image ? user.image : ""%>" height="50" class="ml-5 rounded-circle border shadow" width="50">
+                                                    <% if(user.image) {%>
+                                                        <img src="/img/userImages/<%= user.image %>" class="ml-5 profile-user-img img-fluid img-circle">
+                                                    <% } %>
                                                     <input type="file" class="mt-2" id="image" name="image">
                                                     <input type="hidden" name="old_image" value="<%= user.image %>">
                                                 </div>
@@ -54,24 +75,39 @@
                                             <div class="col-md-6">
                                                 <div class="card-body">
                                                     <div class="form-group">
-                                                        <label for="f_name">First Name:</label>
+                                                        <label for="f_name">First Name:<span class="text-red">*</span>
+                                                        </label>
                                                         <input type="text" class="form-control" id="f_name"
                                                             name="f_name" placeholder="Enter Firstname"
                                                             value="<%= user.f_name ? user.f_name : "" %>">
                                                     </div>
+                                                    <% if(errorMsg) { %>
+                                                        <% errorMsg.forEach((err) => { %>
+                                                            <% if(err.path === "f_name") {%>
+                                                                <span class="error"><%= err.msg %></span>
+                                                                <% } %>
+                                                            <% }) %>
+                                                        <% } %>
                                                     <div class="form-group">
-                                                        <label for="exampleInputEmail1">Email address:</label>
+                                                        <label for="email">Email address:</label>
                                                         <input type="email" class="form-control" id="email"
                                                             placeholder="Enter email" name="email"
                                                             value="<%= user.email ? user.email : "" %>">
                                                     </div>
+                                                    <% if(errorMsg) { %>
+                                                        <% errorMsg.forEach((err) => { %>
+                                                            <% if(err.path === "email") {%>
+                                                                <span class="error"><%= err.msg %></span>
+                                                                <% } %>
+                                                            <% }) %>
+                                                        <% } %>
                                                     <div class="form-group">
-                                                        <label for="l_name">DOB:</label>
+                                                        <label for="dob">DOB:</label>
                                                         <input type="date" class="form-control" id="dob" name="dob"
                                                             value="<%= user.dob ? user.dob : "" %>">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="inputHobbies" class="">Hobbies:</label>
+                                                        <label for="hobbies" class="">Hobbies:</label>
                                                         <div class="">
                                                             <div class="form-check form-check-inline"> 
                                                                 <input type="checkbox" class="form-check-input" name="hobbies" value="sports" id="sports"
@@ -101,13 +137,20 @@
                                             <div class="col-md-6">
                                                 <div class="card-body">
                                                     <div class="form-group">
-                                                        <label for="l_name">Last Name:</label>
+                                                        <label for="l_name">Last Name:<span class="text-red">*</span></label>
                                                         <input type="text" class="form-control" id="l_name"
                                                             name="l_name" placeholder="Enter Lastname"
                                                             value="<%= user.l_name ? user.l_name: "" %>">
                                                     </div>
+                                                    <% if(errorMsg) { %>
+                                                        <% errorMsg.forEach((err) => { %>
+                                                            <% if(err.path === "l_name") {%>
+                                                                <span class="error"><%= err.msg %></span>
+                                                                <% } %>
+                                                            <% }) %>
+                                                        <% } %>
                                                     <div class="form-group">
-                                                        <label for="phone">Mobile No. :</label>
+                                                        <label for="number">Mobile No. :</label>
                                                         <input type="tel" class="form-control" id="number" name="number"
                                                             placeholder="Enter Mobile number"
                                                             value="<%= user.number ? user.number: "" %>">
@@ -163,4 +206,7 @@
 
     <!--validation jQuery-->
     <%- include('../auth/includes/script.ejs') %>
+
+    <!--close icon alert box-->
+    <script src="/js/close.js"></script>
 </body>

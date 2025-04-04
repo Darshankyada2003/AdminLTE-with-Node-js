@@ -155,11 +155,16 @@ const login = async (req, res) => {
 
         // Store user data in a cookie
         const userData = {
-            f_name: checkUser.f_name,
+            fullName: `${checkUser.f_name} ${checkUser.l_name}`,
             email: checkUser.email,
             image: checkUser.image,
+            l_name: checkUser.l_name,
+            number: checkUser.number,
+            gender: checkUser.gender,
+            dob: checkUser.dob,
+            hobbies: checkUser.hobbies
         };
-        
+
         // Store session
         req.session.users = {
             id: checkUser.id,

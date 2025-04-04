@@ -23,7 +23,7 @@ $(document).ready(function () {
             }
         },
         errorPlacement: function (error, element) {
-            error.insertAfter(element.closest(".input-group"));
+            error.insertAfter(element.closest(".show-err-msg"));
         }
     });
 
@@ -123,6 +123,10 @@ $(document).ready(function () {
             },
             email: {
                 required: true
+            },
+            number : {
+                digits : true,
+                maxlength : 10
             }
         },
         messages: {
@@ -130,10 +134,14 @@ $(document).ready(function () {
                 required: "First Name is required"
             },
             l_name: {
-                requires: "Last Name is required"
+                required: "Last Name is required"
             },
             email: {
                 required: "Email is required"
+            },
+            number : {
+                digits : "Enter only digit",
+                maxlength : "Enter only 10 digits"
             }
         },
         errorPlacement: function (error, element) {
