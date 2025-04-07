@@ -92,7 +92,8 @@ const registration = async (req, res) => {
 const registerPage = (req, res) => {
     res.render('auth/registration', {
         errorMsg: [],
-        FormData: {}
+        FormData: {},
+        title : 'Registration'
     })
 }
 
@@ -186,7 +187,8 @@ const login = async (req, res) => {
 const loginPage = (req, res) => {
     res.render('auth/login', {
         errorMsg: [],
-        FormData: {}
+        FormData: {},
+        title: 'Login'
     })
 }
 

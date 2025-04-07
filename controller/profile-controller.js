@@ -12,6 +12,7 @@ const profile = async (req, res) => {
         user,
         hobbiesArray,
         errorMsg: [],
+        title: "Profile",
     });
 };
 

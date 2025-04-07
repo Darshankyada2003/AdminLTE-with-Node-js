@@ -1,11 +1,42 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Dashboard</title>
+    <title>
+        <%= title ? title + ' | AdminLTE 3' : 'AdminLTE 3 | Dashboard' %>
+    </title>
 
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
     <link rel="stylesheet" href="/css/all.min.css">
     <link rel="stylesheet" href="/css/adminlte.min.css">
+
+    <style>
+        .nav-link {
+            /* display: inline-block; */
+            transition: all 0.3s ease-in-out;
+        }
+
+        .nav-link img {
+            transition: transform 0.3s ease- in-out;
+        }
+
+        .nav-link:hover img {
+            transform: scale(1.1);
+        }
+
+        .nav-link.active {
+            background-color: rgba(255, 255, 255, .9);
+            color: #343a40 !important;
+        }
+
+        .user-name {
+            transition: transform 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+        }
+
+        .user-name:hover {
+            text-shadow: 2px 2px 8px rgba(15, 124, 161, 0.7);
+            transform: scale(1.1);
+        }
+    </style>
 </head>

@@ -4,6 +4,7 @@ $(document).ready(function () {
     const ChangePassword = $("#ChangePasswordForm");
     const ForgotPassword = $("#ForgotPasswordForm");
     const ProfileForm = $("#ProfileForm");
+    const roleForm = $("#RoleForm");
 
     loginForm.validate({
         rules: {
@@ -124,9 +125,9 @@ $(document).ready(function () {
             email: {
                 required: true
             },
-            number : {
-                digits : true,
-                maxlength : 10
+            number: {
+                digits: true,
+                maxlength: 10
             }
         },
         messages: {
@@ -139,13 +140,29 @@ $(document).ready(function () {
             email: {
                 required: "Email is required"
             },
-            number : {
-                digits : "Enter only digit",
-                maxlength : "Enter only 10 digits"
+            number: {
+                digits: "Enter only digit",
+                maxlength: "Enter only 10 digits"
             }
         },
         errorPlacement: function (error, element) {
             error.insertAfter(element.closest('.form-group'))
+        }
+    });
+
+    roleForm.validate({
+        rules: {
+            title: {
+                required: true
+            }
+        },
+        messages: {
+            title: {
+                required: "Title is required"
+            }
+        },
+        errorPlacement: function (error, element) {
+            error.insertAfter(element.closest('.form-group'));
         }
     })
 });
