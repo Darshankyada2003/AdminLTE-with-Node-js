@@ -41,6 +41,10 @@ const users = sequelize.define('users', {
     hobbies: {
         type: Sequelize.STRING,
         allowNull: true
+    },
+    role: {
+        type: Sequelize.STRING,
+        allowNull: true
     }
 }, {
     timestamps: false,

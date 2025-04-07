@@ -2,6 +2,7 @@ const fs = require('fs');
 const sessionHelper = require('../helper/session-helper');
 const users = require('../models/user');
 const { validationResult } = require('express-validator');
+const path = require('path');
 
 // GET
 const profile = async (req, res) => {
@@ -44,6 +45,20 @@ const profilePage = async (req, res) => {
         }
 
         const hobbiesFormate = hobbies ? (Array.isArray(hobbies) ? hobbies.join(",") : hobbies) : "null";
+
+        const checkEmail = await users.findOne({ where: { email } });
+        if (checkEmail && checkEmail.id !== userid) {
+            errorMsg.push({
+                path: "alreadyEmail",
+                msg: "Email already exists.!"
+            });
+            return res.render('admin/profile', {
+                errorMsg,
+                user: req.body,
+                hobbiesArray: req.body.hobbies,
+                FormData: req.body
+            })
+        }
 
         await users.update(
             { f_name, l_name, email, image: image, number, hobbies: hobbiesFormate, dob, gender },

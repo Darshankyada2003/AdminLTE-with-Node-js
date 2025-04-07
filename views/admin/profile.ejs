@@ -96,7 +96,7 @@
                                                     </div>
                                                     <% if(errorMsg) { %>
                                                         <% errorMsg.forEach((err) => { %>
-                                                            <% if(err.path === "email") {%>
+                                                            <% if(err.path === "alreadyEmail") {%>
                                                                 <span class="error"><%= err.msg %></span>
                                                                 <% } %>
                                                             <% }) %>
