@@ -51,14 +51,14 @@
                                     <% } %>
                                 <% }) %>    
                             <% } %>
-                            <form action="/addNewrole" id="RoleForm" method="post">
+                            <form action="<%= role && role.id ? '/editrole/' + role.id : '/addNewrole' %>" id="RoleForm" method="post">
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="title">Role Title:<span class="text-red">*</span>
                                         </label>
                                         <input type="text" class="form-control" id="title"
                                             name="title" placeholder="Enter Role title"
-                                            value="">
+                                            value="<%= role.title ? role.title : "" %>">
                                             <% if(errorMsg) { %>
                                                 <% errorMsg.forEach((err) => { %>
                                                     <% if(err.path === "title") { %>
@@ -69,7 +69,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="description">Description:</label>
-                                        <textarea id="description" class="form-control" rows="3" placeholder="Enter Description ..."></textarea>
+                                        <textarea id="description" name="description" class="form-control" rows="3" placeholder="Enter Description ..."><%= role.description ? role.description : '' %></textarea>
                                     </div>
                                     <button type="submit" class="btn btn-dark float-right">Submit</button>
                                 </div>

@@ -2,7 +2,6 @@ const fs = require('fs');
 const sessionHelper = require('../helper/session-helper');
 const users = require('../models/user');
 const { validationResult } = require('express-validator');
-const path = require('path');
 
 // GET
 const profile = async (req, res) => {
@@ -26,7 +25,8 @@ const profilePage = async (req, res) => {
         return res.render('admin/profile', {
             user: req.body,
             hobbiesArray: req.body.hobbies,
-            errorMsg: errorArray
+            errorMsg: errorArray,
+            title: "Profile",
         })
     }
     try {
@@ -57,7 +57,8 @@ const profilePage = async (req, res) => {
                 errorMsg,
                 user: req.body,
                 hobbiesArray: req.body.hobbies,
-                FormData: req.body
+                FormData: req.body,
+                title: "Profile",
             })
         }
 
@@ -88,7 +89,8 @@ const profilePage = async (req, res) => {
             res.render('admin/profile', {
                 user: newUpdate,
                 hobbiesArray,
-                errorMsg
+                errorMsg,
+                title: "Profile",
             });
         }
 

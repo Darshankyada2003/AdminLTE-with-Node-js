@@ -1,120 +1,183 @@
 <%- include('./includes/head.ejs') %>
-<style>
-    .error{
-        color: red;
-        font-weight: 400 !important;
-        font-style: italic;
-        font-size: 14px;
-        position: relative;
-    }
-    label.error {
-        color: red;
-        font-weight: 400 !important;
-        font-style: italic;
-        font-size: 14px;
-        position: relative;
-        bottom: 10px;
-    }
-</style>
-<body>
-    <div class="wrapper">
-        <!-- Navbar -->
-        <%- include('./includes/navbar.ejs') %>
-        <!-- /.navbar -->
- 
-        <!--  Sidebar Container AdminLTE -->
-        <%- include('./includes/sidebar.ejs') %>
-        <!--  /.Sidebar Container AdminLTE -->
-            <!-- Content Wrapper. Contains page content -->
-            <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
-                    <div class="content-header">
-                        <div class="container-fluid">
-                            <div class="row mb-2">
-                                <div class="col-sm-6">
-                                    <!-- <h1 class="m-0">Role</h1> -->
-                                </div><!-- /.col -->
-                                <div class="col-sm-6">
-                                    <ol class="breadcrumb float-sm-right">
-                                        <li class="">
-                                            <button class="btn btn-dark float-right">
-                                                <a href="/addNewrole" class="text-white">+ Add New role</a>
-                                            </button>
-                                        </li>
-                                    </ol>
-                                </div><!-- /.col -->
-                            </div><!-- /.row -->
-                        </div><!-- /.container-fluid -->
-                    </div>
-                <!-- /.content-header -->
-                <section class="content">
-                    <div class="container-fluid">
-                        <div class="card card-dark">
-                            <div class="card-header">
-                                <div class="d-flex justify-content-center h-100">
-                                    <h4 class="card-title">Role</h4>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="card-body">
-                                    <% if(rolesUser && rolesUser.length > 0) { %>
-                                    <table id="example2" class="table table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Id</th>
-                                                <th>Title</th>
-                                                <th>Description</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <% rolesUser.forEach((rolesUser) => { %>
-                                                <tr>
-                                                    <td><%= rolesUser.id %></td>    
-                                                    <td><%= rolesUser.title %></td>    
-                                                    <td><%= rolesUser.description %></td>    
-                                                    <td>
-                                                        <a href="#">
-                                                            <span class="fas fa-edit mr-2"></span>
-                                                        </a>
-                                                        <!-- <a href="/role/">
-                                                            <span class="fas fa-trash"></span>
-                                                       </a> -->
-                                                    </td>    
-                                                </tr>
-                                            <% }) %>
-                                        </tbody>
-                                    </table>
-                                    <% } %>
-                                </div>
-                            </div>
+    <style>
+        .error {
+            color: red;
+            font-weight: 400 !important;
+            font-style: italic;
+            font-size: 14px;
+            position: relative;
+        }
+
+        label.error {
+            color: red;
+            font-weight: 400 !important;
+            font-style: italic;
+            font-size: 14px;
+            position: relative;
+            bottom: 10px;
+        }
+
+        table.scrolldown {
+            width: 100%;
+            border-spacing: 0;
+        }
+
+        table.scrolldown tbody,
+        table.scrolldown thead {
+            display: block;
+        }
+
+        table.scrolldown tbody {
+            height: 300px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        tbody td,
+        thead th {
+            width: 400px;
+        }
+
+        td {
+            text-align: center;
+        }
+    </style>
+
+    <body>
+        <div class="wrapper">
+            <!-- Navbar -->
+            <%- include('./includes/navbar.ejs') %>
+                <!-- /.navbar -->
+
+                <!--  Sidebar Container AdminLTE -->
+                <%- include('./includes/sidebar.ejs') %>
+                    <!--  /.Sidebar Container AdminLTE -->
+                    <!-- Content Wrapper. Contains page content -->
+                    <div class="content-wrapper">
+                        <!-- Content Header (Page header) -->
+                        <div class="content-header">
+                            <div class="container-fluid">
+                                <div class="row mb-2">
+                                    <div class="col-sm-6">
+                                        <!-- <h1 class="m-0">Role</h1> -->
+                                    </div><!-- /.col -->
+                                    <div class="col-sm-6">
+                                        <ol class="breadcrumb float-sm-right">
+                                            <li class="">
+                                                <button class="btn btn-dark float-right">
+                                                    <a href="/addNewrole" class="text-white">+ Add New role</a>
+                                                </button>
+                                            </li>
+                                        </ol>
+                                    </div><!-- /.col -->
+                                </div><!-- /.row -->
+                            </div><!-- /.container-fluid -->
                         </div>
+                        <!-- /.content-header -->
+                        <section class="content">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card card-dark">
+                                            <div class="card-header">
+                                                <div class="d-flex justify-content-center h-100">
+                                                    <h4 class="card-title">Role</h4>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <% if(rolesUser && rolesUser.length> 0) { %>
+                                                    <table id="example1"
+                                                        class="scrolldown table table-bordered table-hover">
+                                                        <thead>
+                                                            <tr class="text-center">
+                                                                <th>Id</th>
+                                                                <th>Title</th>
+                                                                <th>Description</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <% rolesUser.forEach((rolesUser)=> { %>
+                                                                <tr>
+                                                                    <td>
+                                                                        <%= rolesUser.id %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= rolesUser.title %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= rolesUser.description %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a href="/editrole/<%= rolesUser.id %>">
+                                                                            <span class="fas fa-edit mr-2"></span>
+                                                                        </a>
+                                                                        <a href="/role/">
+                                                                            <span class="fas fa-trash"></span>
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                                <% }) %>
+                                                        </tbody>
+                                                    </table>
+                                                <% } %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
                     </div>
-                </section>
-            </div>  
-                <!--Footer-->
-                <%- include('./includes/footer.ejs') %>
-                <!-- /.Footer-->  
-                <!--validation -->
-                <%- include('../auth/includes/script.ejs') %>
-                <!-- /validation--> 
-    </div>
-    <!--close icon alert box-->
-    <script src="/js/close.js"></script>
-    <!-- jQuery -->
-    <script src="/js/jquery.min.js"></script>
+                    <!--Footer-->
+                    <%- include('./includes/footer.ejs') %>
+                        <!-- /.Footer-->
+                        <!--validation -->
+                        <%- include('../auth/includes/script.ejs') %>
+                            <!-- /validation-->
+        </div>
+        <!--close icon alert box-->
+        <script src="/js/close.js"></script>
+        <!-- jQuery -->
+        <script src="/js/jquery.min.js"></script>
 
-    <script src="/js/jquery-ui.min.js"></script>
-    <!-- <script src="/js/password.js"></script> -->
+        <script src="/js/jquery-ui.min.js"></script>
+        <!-- <script src="/js/password.js"></script> -->
 
-    <script>
-        $.widget.bridge('uibutton', $.ui.button)
-    </script>
+        <script>
+            $.widget.bridge('uibutton', $.ui.button)
+        </script>
 
-    <!-- Bootstrap 4 -->
-    <script src="/js/bootstrap.bundle.min.js"></script>
+        <!-- Bootstrap 4 -->
+        <script src="/js/bootstrap.bundle.min.js"></script>
 
-    <!-- AdminLTE App -->
-    <script src="/js/adminlte.js"></script>
+        <!-- AdminLTE App -->
+        <script src="/js/adminlte.js"></script>
 
-</body>
+        <!-- Bootstrap 4 -->
+        <script src="/js/bootstrap.bundle.min.js"></script>
+        <!-- DataTables  & Plugins -->
+        <script src="/js/jquery.dataTables.min.js"></script>
+        <script src="/js/dataTables.bootstrap4.min.js"></script>
+        <script src="/js/dataTables.responsive.min.js"></script>
+        <script src="/js/responsive.bootstrap4.min.js"></script>
+        <script src="/js/dataTables.buttons.min.js"></script>
+        <script src="/js/buttons.bootstrap4.min.js"></script>
+        <script src="/js/jszip.min.js"></script>
+        <script src="/js/pdfmake.min.js"></script>
+        <script src="/js/vfs_fonts.js"></script>
+        <script src="/js/buttons.html5.min.js"></script>
+        <script src="/js/buttons.print.min.js"></script>
+        <script src="/js/buttons.colVis.min.js"></script>
+        <!-- AdminLTE App -->
+        <!-- AdminLTE for demo purposes -->
+        <script src="/js/demo.js"></script>
+        <!-- Page specific script -->
+        <script>
+            $(function () {
+                $("#example1").DataTable({
+                    "responsive": true, "lengthChange": false, "autoWidth": false,
+                    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            });
+        </script>
+    </body>
