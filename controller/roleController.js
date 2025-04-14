@@ -77,6 +77,24 @@ const addNewrolePage = async (req, res) => {
     }
 }
 
+// DELETE role GET
+// const deleteRoleGET = async (req, res) => {
+//     const user = await sessionHelper.loggedUserData(req);
+//     const roleId = req.params.id;
+//     const roleData = await role.findOne({
+//         where: {
+//             id: roleId
+//         }
+//     });
+//     return res.render('admin/role', {
+//         role: roleData,
+//         title: 'role',
+//         user,
+//         errorMsg: []
+//     })
+// }
+
+// DELETE role
 const deleteRole = async (req, res) => {
     try {
         const roleId = req.params.id;
@@ -86,13 +104,15 @@ const deleteRole = async (req, res) => {
             }
         });
         if (roleDelete === 0) {
-            //console.log('Role not found or already deleted');
-            return res.render('admin/role', {
-                user: req.body,
-                title: "Role",
+            return res.json({
+                status: false,
+                message: "Role not found or already deleted",
             })
         }
-        return res.redirect('/admin/role');
+        return res.json({
+            status: true,
+            message: "Role deleted successfully",
+        })
     } catch (error) {
         console.error('Error deleting role:', error);
     }
@@ -188,6 +208,7 @@ module.exports = {
     addNewrolePage,
     roleuser,
     deleteRole,
+    // deleteRoleGET,
     editrole,
     editrolePage
 }

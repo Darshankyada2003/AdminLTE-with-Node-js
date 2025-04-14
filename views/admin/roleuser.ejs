@@ -41,7 +41,13 @@
         td {
             text-align: center;
         }
+        .fa-trash{
+            color: red;
+            cursor: pointer;
+        }
     </style>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
 
     <body>
         <div class="wrapper">
@@ -112,15 +118,17 @@
                                                                         <a href="/editrole/<%= rolesUser.id %>">
                                                                             <span class="fas fa-edit mr-2"></span>
                                                                         </a>
-                                                                        <a href="/role/">
-                                                                            <span class="fas fa-trash"></span>
-                                                                        </a>
+
+                                                                        <span class="fas fa-trash delete-role"
+                                                                            data-id="<%= rolesUser.id %>">
+                                                                        </span>
+
                                                                     </td>
                                                                 </tr>
                                                                 <% }) %>
                                                         </tbody>
                                                     </table>
-                                                <% } %>
+                                                    <% } %>
                                             </div>
                                         </div>
                                     </div>
@@ -131,27 +139,25 @@
                     <!--Footer-->
                     <%- include('./includes/footer.ejs') %>
                         <!-- /.Footer-->
-                        <!--validation -->
-                        <%- include('../auth/includes/script.ejs') %>
-                            <!-- /validation-->
         </div>
+        <!--validation -->
+        <%- include('../auth/includes/script.ejs') %>
+        <!-- /validation-->
         <!--close icon alert box-->
         <script src="/js/close.js"></script>
-        <!-- jQuery -->
-        <script src="/js/jquery.min.js"></script>
-
+        
         <script src="/js/jquery-ui.min.js"></script>
         <!-- <script src="/js/password.js"></script> -->
 
-        <script>
+        <!-- <script>
             $.widget.bridge('uibutton', $.ui.button)
-        </script>
+        </script> -->
 
         <!-- Bootstrap 4 -->
         <script src="/js/bootstrap.bundle.min.js"></script>
 
         <!-- AdminLTE App -->
-        <script src="/js/adminlte.js"></script>
+        <!-- <script src="js/adminlte.js"></script> -->
 
         <!-- Bootstrap 4 -->
         <script src="/js/bootstrap.bundle.min.js"></script>
@@ -165,10 +171,12 @@
         <script src="/js/jszip.min.js"></script>
         <script src="/js/pdfmake.min.js"></script>
         <script src="/js/vfs_fonts.js"></script>
+        <!-- <script src="/js/buttons.html5.min.js"></script> -->
         <script src="/js/buttons.html5.min.js"></script>
         <script src="/js/buttons.print.min.js"></script>
         <script src="/js/buttons.colVis.min.js"></script>
         <!-- AdminLTE App -->
+        <script src="/js/adminlte.min.js"></script>
         <!-- AdminLTE for demo purposes -->
         <script src="/js/demo.js"></script>
         <!-- Page specific script -->
@@ -177,7 +185,26 @@
                 $("#example1").DataTable({
                     "responsive": true, "lengthChange": false, "autoWidth": false,
                     "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-                    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             });
+        </script>
+        <script>
+            $(document).on('click', '.delete-role', function () {
+                const roleid = $(this).data('id');
+
+                if (confirm('Are you sure you want to delete this role?')) {
+                    $.ajax({
+                        url: "http://localhost:4000/role/" + roleid,
+                        method: "delete",
+                        // data: { id: roleid },
+                        success: function (res) {
+                            if (res.status) {
+                                window.location.href = '/role';
+                            }
+                            console.log(res.message);
+                        },
+                    });
+                }
+            })
         </script>
     </body>
