@@ -9,6 +9,7 @@ const dashboardRouter = require('./routes/dashboardRoute');
 const changePasswordRouter = require('./routes/changpasswordRoute');
 const profileRouter = require('./routes/profileRoute');
 const roleRouter = require('./routes/roleRoute');
+const usersRouter = require('./routes/usersRoute');
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.use('/', dashboardRouter);
 app.use('/', changePasswordRouter);
 app.use('/', profileRouter);
 app.use('/', roleRouter);
+app.use('/', usersRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
