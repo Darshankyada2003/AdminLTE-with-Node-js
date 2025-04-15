@@ -47,8 +47,6 @@
         }
     </style>
 
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
-
     <body>
         <div class="wrapper">
             <!-- Navbar -->
@@ -96,7 +94,7 @@
                                                         class="scrolldown table table-bordered table-hover">
                                                         <thead>
                                                             <tr class="text-center">
-                                                                <th>Id</th>
+
                                                                 <th>Title</th>
                                                                 <th>Description</th>
                                                                 <th>Action</th>
@@ -105,9 +103,7 @@
                                                         <tbody>
                                                             <% rolesUser.forEach((rolesUser)=> { %>
                                                                 <tr>
-                                                                    <td>
-                                                                        <%= rolesUser.id %>
-                                                                    </td>
+
                                                                     <td>
                                                                         <%= rolesUser.title %>
                                                                     </td>
@@ -142,69 +138,80 @@
         </div>
         <!--validation -->
         <%- include('../auth/includes/script.ejs') %>
-        <!-- /validation-->
-        <!--close icon alert box-->
-        <script src="/js/close.js"></script>
-        
-        <script src="/js/jquery-ui.min.js"></script>
-        <!-- <script src="/js/password.js"></script> -->
+            <!-- /validation-->
+            <!--toastify Message-->
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+            <!--/toastify Message-->
 
-        <!-- <script>
+            <script src="/js/jquery-ui.min.js"></script>
+            <!-- <script src="/js/password.js"></script> -->
+
+            <!-- <script>
             $.widget.bridge('uibutton', $.ui.button)
         </script> -->
 
-        <!-- Bootstrap 4 -->
-        <script src="/js/bootstrap.bundle.min.js"></script>
+            <!-- Bootstrap 4 -->
+            <script src="/js/bootstrap.bundle.min.js"></script>
 
-        <!-- AdminLTE App -->
-        <!-- <script src="js/adminlte.js"></script> -->
+            <!-- AdminLTE App -->
+            <!-- <script src="js/adminlte.js"></script> -->
 
-        <!-- Bootstrap 4 -->
-        <script src="/js/bootstrap.bundle.min.js"></script>
-        <!-- DataTables  & Plugins -->
-        <script src="/js/jquery.dataTables.min.js"></script>
-        <script src="/js/dataTables.bootstrap4.min.js"></script>
-        <script src="/js/dataTables.responsive.min.js"></script>
-        <script src="/js/responsive.bootstrap4.min.js"></script>
-        <script src="/js/dataTables.buttons.min.js"></script>
-        <script src="/js/buttons.bootstrap4.min.js"></script>
-        <script src="/js/jszip.min.js"></script>
-        <script src="/js/pdfmake.min.js"></script>
-        <script src="/js/vfs_fonts.js"></script>
-        <!-- <script src="/js/buttons.html5.min.js"></script> -->
-        <script src="/js/buttons.html5.min.js"></script>
-        <script src="/js/buttons.print.min.js"></script>
-        <script src="/js/buttons.colVis.min.js"></script>
-        <!-- AdminLTE App -->
-        <script src="/js/adminlte.min.js"></script>
-        <!-- AdminLTE for demo purposes -->
-        <script src="/js/demo.js"></script>
-        <!-- Page specific script -->
-        <script>
-            $(function () {
-                $("#example1").DataTable({
-                    "responsive": true, "lengthChange": false, "autoWidth": false,
-                    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            });
-        </script>
-        <script>
-            $(document).on('click', '.delete-role', function () {
-                const roleid = $(this).data('id');
+            <!-- Bootstrap 4 -->
+            <script src="/js/bootstrap.bundle.min.js"></script>
+            <!-- DataTables  & Plugins -->
+            <script src="/js/jquery.dataTables.min.js"></script>
+            <script src="/js/dataTables.bootstrap4.min.js"></script>
+            <script src="/js/dataTables.responsive.min.js"></script>
+            <script src="/js/responsive.bootstrap4.min.js"></script>
+            <script src="/js/dataTables.buttons.min.js"></script>
+            <script src="/js/buttons.bootstrap4.min.js"></script>
+            <script src="/js/jszip.min.js"></script>
+            <script src="/js/pdfmake.min.js"></script>
+            <script src="/js/vfs_fonts.js"></script>
+            <!-- <script src="/js/buttons.html5.min.js"></script> -->
+            <script src="/js/buttons.html5.min.js"></script>
+            <script src="/js/buttons.print.min.js"></script>
+            <script src="/js/buttons.colVis.min.js"></script>
+            <!-- AdminLTE App -->
+            <script src="/js/adminlte.min.js"></script>
+            <!-- AdminLTE for demo purposes -->
+            <script src="/js/demo.js"></script>
+            <!-- Page specific script -->
+            <script>
+                $(function () {
+                    $("#example1").DataTable({
+                        "responsive": true, "lengthChange": false, "autoWidth": false,
+                        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+                });
+            </script>
+            <script>
+                $(document).on('click', '.delete-role', function () {
+                    const roleid = $(this).data('id');
 
-                if (confirm('Are you sure you want to delete this role?')) {
-                    $.ajax({
-                        url: "http://localhost:4000/role/" + roleid,
-                        method: "delete",
-                        // data: { id: roleid },
-                        success: function (res) {
-                            if (res.status) {
-                                window.location.href = '/role';
-                            }
-                            console.log(res.message);
-                        },
-                    });
-                }
-            })
-        </script>
+                    if (confirm('Are you sure you want to delete this role?')) {
+                        $.ajax({
+                            url: "http://localhost:4000/role/" + roleid,
+                            method: "delete",
+                            // data: { id: roleid },
+                            success: function (res) {
+                                if (res.status) {
+                                    Toastify({
+                                        text: res.message,
+                                        duration: 3000,
+                                        gravity: "top",
+                                        position: "right",
+                                        backgroundColor: "green",
+                                        close: true,
+                                    }).showToast();
+                                    // setTimeout(function () {
+                                    //     window.location.href = '/role';
+                                    // }, 3000);
+                                }
+                                console.log(res.message);
+                            },
+                        });
+                    }
+                })
+            </script>
     </body>
