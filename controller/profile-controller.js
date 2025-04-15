@@ -45,7 +45,7 @@ const profilePage = async (req, res) => {
             })
         }
 
-        const hobbiesFormate = hobbies ? (Array.isArray(hobbies) ? hobbies.join(",") : hobbies) : "null";
+        const hobbiesFormate = hobbies ? (Array.isArray(hobbies) ? hobbies.join(",") : hobbies) : "";
 
         const checkEmail = await users.findOne({ where: { email } });
         if (checkEmail && checkEmail.id !== userid) {

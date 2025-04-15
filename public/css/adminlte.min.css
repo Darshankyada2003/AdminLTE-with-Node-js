@@ -14346,7 +14346,7 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
 [class*=sidebar-dark-] .nav-sidebar>.nav-item.menu-open>.nav-link,
 [class*=sidebar-dark-] .nav-sidebar>.nav-item:hover>.nav-link,
 [class*=sidebar-dark-] .nav-sidebar>.nav-item>.nav-link:focus {
-    background-color: rgba(255, 255, 255, .1);
+    /* background-color: rgba(255, 255, 255, .1); */
     color: #fff
 }
 

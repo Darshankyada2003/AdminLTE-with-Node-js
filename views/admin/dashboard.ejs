@@ -1,27 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
 <%- include('./includes/head.ejs') %>
-<style>
-    .nav-link {
-        display: inline-block;
-        transition: all 0.3s ease-in-out;
-    }
+    <style>
+        .nav-link {
+            display: inline-block;
+            transition: all 0.3s ease-in-out;
+        }
 
-    .nav-link img {
-        transition: transform 0.3s ease-in-out;
-    }
+        .nav-link img {
+            transition: transform 0.3s ease-in-out;
+        }
 
-    .nav-link:hover img {
-        transform: scale(1.1);
-    }
+        .nav-link:hover img {
+            transform: scale(1.1);
+        }
 
-    .user-name {
-        transition: transform 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
-    }
+        .user-name {
+            transition: transform 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+        }
 
-    .user-name:hover {
-        text-shadow: 2px 2px 8px rgba(15, 124, 161, 0.7);
-        transform: scale(1.1);
-    }
-</style>
+        .user-name:hover {
+            text-shadow: 2px 2px 8px rgba(15, 124, 161, 0.7);
+            transform: scale(1.1);
+        }
+    </style>
 
     <body class="hold-transition sidebar-mini layout-fixed">
         <div class="wrapper">
@@ -32,86 +34,86 @@
 
             <!-- Navbar -->
             <%- include('./includes/navbar.ejs') %>
-            <!-- /.navbar -->
+                <!-- /.navbar -->
 
-            <!--  Sidebar Container AdminLTE -->
-              <%- include('./includes/sidebar.ejs') %>
-            <!--  /.Sidebar Container AdminLTE -->
-                
-            <!-- Content Wrapper. Contains page content -->
-            <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-                <div class="content-header">
-                </div>
+                <!--  Sidebar Container AdminLTE -->
+                <%- include('./includes/sidebar.ejs') %>
+                    <!--  /.Sidebar Container AdminLTE -->
 
-                <section class="content">
-                        <div class="container-fluid">
-                            <!-- Small boxes (Stat box) -->
-                            <div class="row">
-                                <div class="col-lg-3 col-6">
-                                    <!-- small box -->
-                                    <div class="small-box bg-info">
-                                        <div class="inner">
-                                            <h3>150</h3>
+                    <!-- Content Wrapper. Contains page content -->
+                    <div class="content-wrapper">
+                        <!-- Content Header (Page header) -->
+                        <div class="content-header">
+                        </div>
 
-                                            <p>New Orders</p>
+                        <section class="content">
+                            <div class="container-fluid">
+                                <!-- Small boxes (Stat box) -->
+                                <div class="row">
+                                    <div class="col-lg-3 col-6">
+                                        <!-- small box -->
+                                        <div class="small-box bg-info">
+                                            <div class="inner">
+                                                <h3>150</h3>
+
+                                                <p>New Orders</p>
+                                            </div>
+                                            <div class="icon">
+                                                <i class="ion ion-bag"></i>
+                                            </div>
+                                            <a href="/" class="small-box-footer">More info <i
+                                                    class="fas fa-arrow-circle-right"></i></a>
                                         </div>
-                                        <div class="icon">
-                                            <i class="ion ion-bag"></i>
-                                        </div>
-                                        <a href="/" class="small-box-footer">More info <i
-                                                class="fas fa-arrow-circle-right"></i></a>
                                     </div>
-                                </div>
-                                <div class="col-lg-3 col-6">
-                                    <div class="small-box bg-success">
-                                        <div class="inner">
-                                            <h3>53<sup style="font-size: 20px">%</sup></h3>
+                                    <div class="col-lg-3 col-6">
+                                        <div class="small-box bg-success">
+                                            <div class="inner">
+                                                <h3>53<sup style="font-size: 20px">%</sup></h3>
 
-                                            <p>Bounce Rate</p>
+                                                <p>Bounce Rate</p>
+                                            </div>
+                                            <div class="icon">
+                                                <i class="ion ion-stats-bars"></i>
+                                            </div>
+                                            <a href="/" class="small-box-footer">More info <i
+                                                    class="fas fa-arrow-circle-right"></i></a>
                                         </div>
-                                        <div class="icon">
-                                            <i class="ion ion-stats-bars"></i>
-                                        </div>
-                                        <a href="/" class="small-box-footer">More info <i
-                                                class="fas fa-arrow-circle-right"></i></a>
                                     </div>
-                                </div>
-                                <div class="col-lg-3 col-6">
-                                    <div class="small-box bg-warning">
-                                        <div class="inner">
-                                            <h3>44</h3>
+                                    <div class="col-lg-3 col-6">
+                                        <div class="small-box bg-warning">
+                                            <div class="inner">
+                                                <h3>44</h3>
 
-                                            <p>User Registrations</p>
+                                                <p>User Registrations</p>
+                                            </div>
+                                            <div class="icon">
+                                                <i class="ion ion-person-add"></i>
+                                            </div>
+                                            <a href="/" class="small-box-footer">More info <i
+                                                    class="fas fa-arrow-circle-right"></i></a>
                                         </div>
-                                        <div class="icon">
-                                            <i class="ion ion-person-add"></i>
-                                        </div>
-                                        <a href="/" class="small-box-footer">More info <i
-                                                class="fas fa-arrow-circle-right"></i></a>
                                     </div>
-                                </div>
-                                <div class="col-lg-3 col-6">
-                                    <div class="small-box bg-danger">
-                                        <div class="inner">
-                                            <h3>65</h3>
+                                    <div class="col-lg-3 col-6">
+                                        <div class="small-box bg-danger">
+                                            <div class="inner">
+                                                <h3>65</h3>
 
-                                            <p>Unique Visitors</p>
+                                                <p>Unique Visitors</p>
+                                            </div>
+                                            <div class="icon">
+                                                <i class="ion ion-pie-graph"></i>
+                                            </div>
+                                            <a href="/" class="small-box-footer">More info <i
+                                                    class="fas fa-arrow-circle-right"></i></a>
                                         </div>
-                                        <div class="icon">
-                                            <i class="ion ion-pie-graph"></i>
-                                        </div>
-                                        <a href="/" class="small-box-footer">More info <i
-                                                class="fas fa-arrow-circle-right"></i></a>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                </section>
-            </div>
-            <!--Footer-->
-            <%- include('./includes/footer.ejs') %>
-            <!-- /.Footer-->
+                        </section>
+                    </div>
+                    <!--Footer-->
+                    <%- include('./includes/footer.ejs') %>
+                        <!-- /.Footer-->
         </div>
 
         <!-- jQuery -->
@@ -130,3 +132,5 @@
         <script src="/js/adminlte.js"></script>
 
     </body>
+
+</html>

@@ -1,90 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
 <%- include('./includes/head.ejs') %>
-<style>
-    .error{
-        color: red;
-        font-weight: 400 !important;
-        font-style: italic;
-        font-size: 14px;
-        position: relative;
-    }
-    label.error {
-        color: red;
-        font-weight: 400 !important;
-        font-style: italic;
-        font-size: 14px;
-        position: relative;
-        bottom: 10px;
-    }
-</style>
-<body>
-    <div class="wrapper">
-        <!-- Navbar -->
-        <%- include('./includes/navbar.ejs') %>
-        <!-- /.navbar -->
- 
-        <!--  Sidebar Container AdminLTE -->
-        <%- include('./includes/sidebar.ejs') %>
-        <!--  /.Sidebar Container AdminLTE -->
- 
-            <!-- Content Wrapper. Contains page content -->
-            <div class="content-wrapper">
-                <div class="content-header">
-                    
-                </div>
-                <section class="content">
-                    <div class="container-fluid">
-                        <div class="card card-dark">
-                            <div class="card-header">
-                                <div class="d-flex justify-content-center h-100">
-                                    <h4 class="card-title">Role</h4>
+    <style>
+        .error {
+            color: red;
+            font-weight: 400 !important;
+            font-style: italic;
+            font-size: 14px;
+            position: relative;
+        }
+
+        label.error {
+            color: red;
+            font-weight: 400 !important;
+            font-style: italic;
+            font-size: 14px;
+            position: relative;
+            bottom: 10px;
+        }
+    </style>
+
+    <body>
+        <div class="wrapper">
+            <!-- Navbar -->
+            <%- include('./includes/navbar.ejs') %>
+                <!-- /.navbar -->
+
+                <!--  Sidebar Container AdminLTE -->
+                <%- include('./includes/sidebar.ejs') %>
+                    <!--  /.Sidebar Container AdminLTE -->
+
+                    <!-- Content Wrapper. Contains page content -->
+                    <div class="content-wrapper">
+                        <div class="content-header">
+
+                        </div>
+                        <section class="content">
+                            <div class="container-fluid">
+                                <div class="card card-dark">
+                                    <div class="card-header">
+                                        <div class="d-flex justify-content-center h-100">
+                                            <h4 class="card-title">Role</h4>
+                                        </div>
+                                    </div>
+                                    <% if(errorMsg) { %>
+                                        <% errorMsg.forEach((err)=> { %>
+                                            <% if(err.path==="create role" ) { %>
+                                                <div
+                                                    class="d-flex align-items-center justify-content-center h-100 mt-3">
+                                                    <div class="alert alert-success w-50 text-center" id="toggle_close"
+                                                        role="alert">
+                                                        <%= err.msg %>
+                                                            <span class="fas fa-times float-right"
+                                                                id="alert_box"></span>
+                                                    </div>
+                                                </div>
+                                                <% } %>
+                                                    <% }) %>
+                                                        <% } %>
+                                                            <form
+                                                                action="<%= role && role.id ? '/editrole/' + role.id : '/addNewrole' %>"
+                                                                id="RoleForm" method="post">
+                                                                <div class="card-body">
+                                                                    <div class="form-group">
+                                                                        <label for="title">Role Title:<span
+                                                                                class="text-red">*</span>
+                                                                        </label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="title" name="title"
+                                                                            placeholder="Enter Role title"
+                                                                            value="<%= role.title ? role.title : "" %>">
+                                                                        <% if(errorMsg) { %>
+                                                                            <% errorMsg.forEach((err)=> { %>
+                                                                                <% if(err.path==="title" ) { %>
+                                                                                    <span class="error">
+                                                                                        <%= err.msg %>
+                                                                                    </span>
+                                                                                    <% } %>
+                                                                                        <% }) %>
+                                                                                            <% } %>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="description">Description:</label>
+                                                                        <textarea id="description" name="description"
+                                                                            class="form-control" rows="3"
+                                                                            placeholder="Enter Description ..."><%= role.description ? role.description : '' %></textarea>
+                                                                    </div>
+                                                                    <button type="submit"
+                                                                        class="btn btn-dark float-right">Submit</button>
+                                                                </div>
+                                                            </form>
                                 </div>
                             </div>
-                            <% if(errorMsg) { %>
-                                <% errorMsg.forEach((err) => { %>
-                                    <% if(err.path === "create role") { %>
-                                        <div class="d-flex align-items-center justify-content-center h-100 mt-3">                                          
-                                            <div class="alert alert-success w-50 text-center" id="toggle_close" role="alert">
-                                                <%= err.msg %>
-                                                <span class="fas fa-times float-right" id="alert_box"></span>
-                                            </div>
-                                        </div>
-                                    <% } %>
-                                <% }) %>    
-                            <% } %>
-                            <form action="<%= role && role.id ? '/editrole/' + role.id : '/addNewrole' %>" id="RoleForm" method="post">
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label for="title">Role Title:<span class="text-red">*</span>
-                                        </label>
-                                        <input type="text" class="form-control" id="title"
-                                            name="title" placeholder="Enter Role title"
-                                            value="<%= role.title ? role.title : "" %>">
-                                            <% if(errorMsg) { %>
-                                                <% errorMsg.forEach((err) => { %>
-                                                    <% if(err.path === "title") { %>
-                                                        <span class="error"><%= err.msg  %></span>
-                                                    <% } %>
-                                                <% }) %>    
-                                            <% } %>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="description">Description:</label>
-                                        <textarea id="description" name="description" class="form-control" rows="3" placeholder="Enter Description ..."><%= role.description ? role.description : '' %></textarea>
-                                    </div>
-                                    <button type="submit" class="btn btn-dark float-right">Submit</button>
-                                </div>
-                            </form>
-                        </div>
+                        </section>
                     </div>
-                </section>
-            </div>  
-            <!--Footer-->
-            <%- include('./includes/footer.ejs') %>
-            <!-- /.Footer-->  
-            <!--validation -->
-            <%- include('../auth/includes/script.ejs') %>
-            <!-- /validation--> 
-    </div>
-    <!--close icon alert box-->
-    <script src="/js/close.js"></script>
-</body>
+                    <!--Footer-->
+                    <%- include('./includes/footer.ejs') %>
+                        <!-- /.Footer-->
+                        <!--validation -->
+                        <%- include('../auth/includes/script.ejs') %>
+                            <!-- /validation-->
+        </div>
+        <!--close icon alert box-->
+        <script src="/js/close.js"></script>
+    </body>
+
+</html>

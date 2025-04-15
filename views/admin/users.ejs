@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="en">
 <%- include('./includes/head.ejs') %>
     <style>
         .error {
@@ -36,7 +38,6 @@
                             <div class="container-fluid">
                                 <div class="row mb-2">
                                     <div class="col-sm-6">
-                                        <!-- <h1 class="m-0">Role</h1> -->
                                     </div>
                                     <div class="col-sm-6">
                                         <ol class="breadcrumb float-sm-right">
@@ -46,90 +47,90 @@
                                                 </button>
                                             </li>
                                         </ol>
-                                    </div><!-- /.col -->
-                                </div><!-- /.row -->
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <!-- /.content-header -->
                         <section class="content">
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="card card-dark">
-                                            <div class="card-header">
-                                                <div class="d-flex justify-content-center h-100">
-                                                    <h4 class="card-title">Users</h4>
-                                                </div>
+                                        <div class="card-header">
+                                            <div class="d-flex justify-content-center h-100">
+                                                <h4 class="card-title ">Users</h4>
                                             </div>
-                                            <div class="card-body">
-                                                <% if(registeredUser && registeredUser.length> 0) { %>
-                                                    <table id="example1" class="table table-bordered table-striped">
-                                                        <thead>
-                                                            <tr class="text-center">
-                                                                <th>Image</th>
-                                                                <th>FirstName</th>
-                                                                <th>LastName</th>
-                                                                <th>Email</th>
-                                                                <th>Mobile No.</th>
-                                                                <th>DOB</th>
-                                                                <th>Hobbies</th>
-                                                                <th>Action</th>
+                                        </div>
+                                        <div class="card-body">
+                                            <% if(registeredUser && registeredUser.length> 0) { %>
+                                                <table id="example1" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr class="text-center">
+                                                            <th>Image</th>
+                                                            <th>FirstName</th>
+                                                            <th>LastName</th>
+                                                            <th>Email</th>
+                                                            <th>Mobile No.</th>
+                                                            <th>DOB</th>
+                                                            <th>Hobbies</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <% registeredUser.forEach((users)=> { %>
+                                                            <tr>
+                                                                <td>
+                                                                    <% if(users.image){ %>
+                                                                        <img src="/img/userImages/<%= users.image %>"
+                                                                            alt="" class="img-circle elevation-2"
+                                                                            style="width: 50px; height: 50px;">
+                                                                        <% } %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= users.f_name %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= users.l_name %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= users.email %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= users.number %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= users.dob %>
+                                                                </td>
+                                                                <td class="">
+                                                                    <%= users.hobbies %>
+                                                                </td>
+                                                                <td>
+                                                                    <a href="">
+                                                                        <span class="fas fa-edit mr-2"></span>
+                                                                    </a>
+
+                                                                    <span class="fas fa-trash delete-role">
+                                                                    </span>
+
+                                                                </td>
                                                             </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <% registeredUser.forEach((users)=> { %>
-                                                                <tr>
-                                                                    <td>
-                                                                        <% if(users.image){ %>
-                                                                            <img src="/img/userImages/<%= users.image %>"
-                                                                                alt="" class="img-circle elevation-2"
-                                                                                style="width: 50px; height: 50px;">
-                                                                            <% } %>
-                                                                    </td>
-                                                                    <td>
-                                                                        <%= users.f_name %>
-                                                                    </td>
-                                                                    <td>
-                                                                        <%= users.l_name %>
-                                                                    </td>
-                                                                    <td>
-                                                                        <%= users.email %>
-                                                                    </td>
-                                                                    <td>
-                                                                        <%= users.number %>
-                                                                    </td>
-                                                                    <td>
-                                                                        <%= users.dob %>
-                                                                    </td>
-                                                                    <td>
-                                                                        <%= users.Hobbies %>
-                                                                    </td>
-                                                                    <td>
-                                                                        <a href="">
-                                                                            <span class="fas fa-edit mr-2"></span>
-                                                                        </a>
-
-                                                                        <span class="fas fa-trash delete-role">
-                                                                        </span>
-
-                                                                    </td>
-                                                                </tr>
-                                                                <% }) %>
-                                                        </tbody>
-                                                    </table>
-                                                    <% } %>
-                                            </div>
+                                                            <% }) %>
+                                                    </tbody>
+                                                </table>
+                                                <% } %>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </section>
                     </div>
-                    <!--Footer-->
                     <%- include('./includes/footer.ejs') %>
-                        <!-- /.Footer-->
         </div>
         <script src="/js/jquery.min.js"></script>
+        <script src="/js/jquery-ui.min.js"></script>
+        <script src="/js/adminlte.js"></script>
+
         <!-- Bootstrap 4 -->
         <script src="/js/bootstrap.bundle.min.js"></script>
         <!-- DataTables  & Plugins -->
@@ -159,3 +160,5 @@
             });
         </script>
     </body>
+
+</html>
