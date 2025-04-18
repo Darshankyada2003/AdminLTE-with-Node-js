@@ -1,6 +1,7 @@
 const { validationResult, check } = require('express-validator');
 const bcrypt = require('bcrypt')
-const users = require('../models/user');
+const db = require('../models');
+
 
 // Registration POST
 const registration = async (req, res) => {
@@ -48,7 +49,7 @@ const registration = async (req, res) => {
             })
         }
 
-        const checkEmail = await users.findOne({ where: { email } });
+        const checkEmail = await db.users.findOne({ where: { email } });
         if (checkEmail) {
             errorMsg.push({
                 param: "email",
@@ -62,7 +63,7 @@ const registration = async (req, res) => {
             });
         }
         const hashPassword = await bcrypt.hash(password, 10);
-        const createUser = await users.create({
+        const createUser = await db.users.create({
             f_name,
             email,
             password: hashPassword
@@ -119,7 +120,7 @@ const login = async (req, res) => {
 
         const { email, password } = req.body;
 
-        const checkUser = await users.findOne({ where: { email } });
+        const checkUser = await db.users.findOne({ where: { email } });
         if (!checkUser) {
             errorMsg.push({
                 path: "email",
@@ -173,7 +174,9 @@ const login = async (req, res) => {
             ...userData
         };
 
-        res.cookie("UserData", JSON.stringify(userData), { httpOnly: true });
+        const cookieData = { fullName: userData.fullName, image: userData.image };
+
+        res.cookie("UserData", JSON.stringify(cookieData));
 
         console.log("Login successful");
         return res.redirect('/');
@@ -222,7 +225,7 @@ const forgotPasswordPage = async (req, res) => {
         }
 
         const { email } = req.body;
-        const userEmailCheck = await users.findOne({ where: { email } });
+        const userEmailCheck = await db.users.findOne({ where: { email } });
         if (!userEmailCheck) {
             errorMsg.push({
                 path: "email",

@@ -42,8 +42,36 @@
                 </a>
             </div>
         </li>
-        <!-- <span class="mt-2 mr-2 user-name">
-            <%= user ? user.name : 'Guest' %>
-        </span> -->
+        <!-- <%= user ? user.name : 'Guest' %> -->
     </ul>
+    <!-- <script>
+        function getCookie(name) {
+            const cookieArr = document.cookie.split(';');
+            for (let i = 0; i < cookieArr.length; i++) {
+                const cookiePair = cookieArr[i].split('=');
+                if (name === cookiePair[0].trim()) {
+                    return decodeURIComponent(cookiePair[1]);
+                }
+            }
+            return null;
+        }
+        $(document).ready(function () {
+            console.log("All cookies:", document.cookie);
+            debugger
+            const userData = getCookie('UserData');
+            if (userData) {
+                try {
+                    const user = JSON.parse(userData);
+                    $('.user-name').text(user.fullName || 'Guest');
+                    if (user.image) {
+                        $('.user-image').attr('src', `/img/userImages/${user.image}`);
+                    }
+                } catch (e) {
+                    console.error('Invalid JSON in cookie');
+                }
+            } else {
+                console.log("UserData cookie not found");
+            }
+        });
+    </script> -->
 </nav>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./includes/head.ejs') %>
+    <style>
+        label.error {
+            color: red;
+            font-weight: 400 !important;
+            font-style: italic;
+            font-size: 14px;
+            position: relative;
+            bottom: 10px;
+        }
+
+        .error {
+            color: red;
+            font-weight: 400 !important;
+            font-style: italic;
+            font-size: 14px;
+            position: relative;
+            bottom: 10px;
+        }
+    </style>
+
+    <body>
+        <div class="wrapper">
+            <!-- Navbar -->
+            <%- include('./includes/navbar.ejs') %>
+                <!-- /.navbar -->
+                <%- include('./includes/sidebar.ejs') %>
+
+                    <div class="content-wrapper">
+                        <div class="content-header">
+
+                        </div>
+                        <section class="content">
+                            <div class="container-fluid">
+                                <div class="card card-dark">
+                                    <div class="card-header">
+                                        <div class="d-flex justify-content-center h-100">
+                                            <h4 class="card-title">Add New User</h4>
+                                        </div>
+                                    </div>
+                                    <form action="<%= FormData.id ? '/editUser/'+FormData.id :'/addUser' %>" method="post" enctype="multipart/form-data">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center h-100 justify-content-center">
+                                                <div class="form-group">
+                                                    <label for="exampleInputFile" class="ml-4">Image Upload :</label>
+                                                    <div class="input-group d-flex flex-column">
+                                                        <% if(FormData.image){ %>
+                                                            <img src="/img/userImages/<%=FormData.image %>" class="ml-5 profile-user-img img-fluid img-circle">
+                                                        <% } %>
+                                                        <input type="file" class="mt-2" id="image" name="image">
+                                                        <input type="hidden" name="old_image" value="<%= FormData.image %>">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <!--left section-->
+                                                <div class="col-md-6">
+                                                    <div class="card-body">
+                                                        <input type="hidden" name="id" value="<%= FormData?.id || '' %>">
+                                                        <div class="form-group">
+                                                            <label for="f_name">First Name:<span
+                                                                    class="text-red">*</span>
+                                                            </label>
+                                                            <input type="text" class="form-control" id="f_name"
+                                                                name="f_name" placeholder="Enter Firstname" value="<%= FormData.f_name%>">
+                                                        </div>
+                                                        <% if(errorMsg){ %>
+                                                            <% errorMsg.forEach((err) => { %>
+                                                                <% if(err.path === "f_name"){ %>
+                                                                    <span class="error">
+                                                                        <%= err.msg %>    
+                                                                    </span>    
+                                                                    <% } %>
+                                                            <% }) %>     
+                                                        <% } %>
+                                                        <div class="form-group">
+                                                            <label for="email">Email address:<span
+                                                                class="text-red">*</span>
+                                                            </label>
+                                                            <input type="email" class="form-control" id="email"
+                                                                placeholder="Enter email" name="email"
+                                                                value="<%= FormData.email%>">
+                                                        </div>
+                                                        <% if(errorMsg){ %>
+                                                            <% errorMsg.forEach((err) => { %>
+                                                                <% if(err.path === "emailAlready"){ %>
+                                                                    <span class="error">
+                                                                        <%= err.msg %>    
+                                                                    </span>    
+                                                                    <% } %>
+                                                            <% }) %>     
+                                                        <% } %>
+                                                        <% if(errorMsg){ %>
+                                                            <% errorMsg.forEach((err) => { %>
+                                                                <% if(err.path === "email"){ %>
+                                                                    <span class="error">
+                                                                        <%= err.msg %>    
+                                                                    </span>    
+                                                                    <% } %>
+                                                            <% }) %>     
+                                                        <% } %>
+                                                        <div class="form-group">
+                                                            <label for="dob">DOB:</label>
+                                                            <input type="date" class="form-control" id="dob" name="dob" value="<%= FormData.dob  %>">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="hobbies" class="">Hobbies:</label>
+                                                            <div class="">
+                                                                <div class="form-check form-check-inline">
+                                                                    <input type="checkbox" class="form-check-input"
+                                                                        name="hobbies" value="sports" id="sports">
+                                                                    <label class="form-check-label"
+                                                                        for="sports">Sports</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input type="checkbox" class="form-check-input"
+                                                                        name="hobbies" value="painting" id="painting">
+                                                                    <label class="form-check-label"
+                                                                        for="painting">Painting</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input type="checkbox" class="form-check-input"
+                                                                        name="hobbies" value="dance" id="dance">
+                                                                    <label class="form-check-label"
+                                                                        for="dance">Dance</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input type="checkbox" class="form-check-input"
+                                                                        name="hobbies" value="learning" id="learning">
+                                                                    <label class="form-check-label"
+                                                                        for="learning">learning</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Role:</label>
+                                                            <select class="form-control select2" style="width: 100%;" name="roleId" id="roleId">
+                                                              <!-- <option selected="selected">Alabama</option> -->
+                                                                <% if(roleData){ %>
+                                                                    <% roleData.forEach((role) => { %>
+                                                                        <option value="<%= role.id %>" <%= FormData.role?.id === role.id ? 'selected' : '' %>><%= role.title %></option>
+                                                                    <% }) %>
+                                                                <% } %>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--right se ction-->
+                                                <div class="col-md-6">
+                                                    <div class="card-body">
+                                                        <div class="form-group">
+                                                            <label for="l_name">Last Name:<span
+                                                                    class="text-red">*</span></label>
+                                                            <input type="text" class="form-control" id="l_name"
+                                                                name="l_name" placeholder="Enter Lastname"
+                                                                value="<%= FormData.l_name%>">
+                                                        </div>
+                                                        <% if(errorMsg){ %>
+                                                            <% errorMsg.forEach((err) => { %>
+                                                                <% if(err.path === "l_name"){ %>
+                                                                    <span class="error">
+                                                                        <%= err.msg %>    
+                                                                    </span>    
+                                                                    <% } %>
+                                                            <% }) %>     
+                                                        <% } %>
+                                                        <div class="form-group">
+                                                            <label for="password">Password:<span
+                                                                class="text-red">*</span></label>
+                                                            <input type="password" class="form-control" id="password"
+                                                                name="password" placeholder="Enter password"
+                                                                value="<%= FormData.password%>">
+                                                        </div>
+                                                        <% if(errorMsg){ %>
+                                                            <% errorMsg.forEach((err) => { %>
+                                                                <% if(err.path === "password"){ %>
+                                                                    <span class="error">
+                                                                        <%= err.msg %>    
+                                                                    </span>    
+                                                                    <% } %>
+                                                            <% }) %>     
+                                                        <% } %>
+                                                        <div class="form-group">
+                                                            <label for="number">Mobile No. :</label>
+                                                            <input type="tel" class="form-control" id="number"
+                                                                name="number" placeholder="Enter Mobile number">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="gender" class="col-form-label">Gender:</label>
+                                                            <div class="row">
+                                                                <div class="col-sm-10">
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input type="radio" name="gender" id="male" checked
+                                                                            class="form-check-input" value="male"<%= FormData &&  FormData.gender === 'male' ? 'checked' : '' %>>
+                                                                        <label for="male"
+                                                                            class="form-check-label">Male</label>
+                                                                    </div>
+
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input type="radio" name="gender" id="female"
+                                                                            class="form-check-input" value="female"<%= FormData && FormData.gender === 'female' ? 'checked' : '' %>>
+                                                                        <label for="female"
+                                                                            class="form-check-label">Female</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-dark float-right">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <%- include('./includes/footer.ejs') %>
+        </div>
+        <!-- jQuery -->
+        <script src="/js/jquery.min.js"></script>
+
+        <script src="/js/jquery-ui.min.js"></script>
+        <!-- <script src="/js/password.js"></script> -->
+
+        <script>
+            $.widget.bridge('uibutton', $.ui.button)
+        </script>
+
+        <!-- Bootstrap 4 -->
+        <script src="/js/bootstrap.bundle.min.js"></script>
+
+        <!-- AdminLTE App -->
+        <script src="/js/adminlte.js"></script>
+    </body>
+
+</html>

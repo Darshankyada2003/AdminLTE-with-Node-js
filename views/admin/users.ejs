@@ -67,9 +67,11 @@
                                                     <thead>
                                                         <tr class="text-center">
                                                             <th>Image</th>
-                                                            <th>FirstName</th>
-                                                            <th>LastName</th>
+                                                            <th>First Name</th>
+                                                            <th>Last Name</th>
                                                             <th>Email</th>
+                                                            <th>Gender</th>
+                                                            <th>Role</th>
                                                             <th>Mobile No.</th>
                                                             <th>DOB</th>
                                                             <th>Hobbies</th>
@@ -95,6 +97,12 @@
                                                                 <td>
                                                                     <%= users.email %>
                                                                 </td>
+                                                                <td class="">
+                                                                    <%= users.gender %>
+                                                                </td>
+                                                                <td class="">
+                                                                    <%= users.role.title %>
+                                                                </td>
                                                                 <td>
                                                                     <%= users.number %>
                                                                 </td>
@@ -104,8 +112,9 @@
                                                                 <td class="">
                                                                     <%= users.hobbies %>
                                                                 </td>
+                                                                
                                                                 <td>
-                                                                    <a href="">
+                                                                    <a href="/editUser/<%= users.id %>">
                                                                         <span class="fas fa-edit mr-2"></span>
                                                                     </a>
 

@@ -1,14 +1,12 @@
 const { validationResult } = require('express-validator');
 const sessionHelper = require('../helper/session-helper');
-const role = require('../models/role');
-
+const db = require('../models');
 // GET
 const roleuser = async (req, res) => {
     try {
         const user = await sessionHelper.loggedUserData(req);
 
-        const rolesUser = await role.findAll({
-            attributes: ['id', 'title', 'description'],
+        const rolesUser = await db.roles.findAll({
             order: [['id', 'DESC']]
         });
 
@@ -36,6 +34,7 @@ const addNewrole = async (req, res) => {
 
 // POST add new role
 const addNewrolePage = async (req, res) => {
+    const user = await sessionHelper.loggedUserData(req);
     const error = validationResult(req);
     const errorMsg = [];
     if (!error.isEmpty()) {
@@ -49,7 +48,7 @@ const addNewrolePage = async (req, res) => {
     }
     try {
         const { id, title, description } = req.body;
-        const createRole = await role.create({
+        const createRole = await db.roles.create({
             id,
             title,
             description
@@ -98,7 +97,7 @@ const addNewrolePage = async (req, res) => {
 const deleteRole = async (req, res) => {
     try {
         const roleId = req.params.id;
-        const roleDelete = await role.destroy({
+        const roleDelete = await db.roles.destroy({
             where: {
                 id: roleId
             }
@@ -122,7 +121,7 @@ const deleteRole = async (req, res) => {
 const editrolePage = async (req, res) => {
     const user = await sessionHelper.loggedUserData(req);
     const roleId = req.params.id;
-    const roleData = await role.findOne({
+    const roleData = await db.roles.findOne({
         where: {
             id: roleId
         }
@@ -159,7 +158,7 @@ const editrole = async (req, res) => {
         })
     }
     try {
-        const userEditRole = await role.findOne({
+        const userEditRole = await db.roles.findOne({
             where: {
                 id: roleId
             }
@@ -182,8 +181,8 @@ const editrole = async (req, res) => {
             // { where: { id: roleId } }
         );
 
-        const updateRole = await role.findOne({ where: { id: roleId } });
-        const rolesUser = await role.findAll({
+        const updateRole = await db.roles.findOne({ where: { id: roleId } });
+        const rolesUser = await db.roles.findAll({
             attributes: ['id', 'title', 'description'],
             order: [['id', 'DESC']]
         });

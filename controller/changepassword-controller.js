@@ -1,6 +1,6 @@
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcrypt')
-const users = require('../models/user');
+const db = require('../models');
 
 // changePassword GET
 const changePassword = (req, res) => {
@@ -33,6 +33,7 @@ const changePasswordPage = async (req, res) => {
             })
             return res.render('admin/changepassword', {
                 // userid: id,
+                title : 'ChangePasswords',
                 errorMsg,
                 user,
                 FormData: req.body
@@ -44,7 +45,7 @@ const changePasswordPage = async (req, res) => {
         const userid = user.id;
 
         const hashPassword = await bcrypt.hash(password, 10);
-        const NewPassword = await users.update(
+        const NewPassword = await db.users.update(
             { password: hashPassword },
             { where: { id: userid } }
         );
@@ -56,7 +57,8 @@ const changePasswordPage = async (req, res) => {
             })
             return res.render('admin/changepassword', {
                 errorMsg,
-                user
+                user,
+                title : 'ChangePasswords'
             })
         } else {
             errorMsg.push({
@@ -64,7 +66,8 @@ const changePasswordPage = async (req, res) => {
             })
             return res.render('admin/changepassword', {
                 errorMsg,
-                userid: id,
+                title : 'ChangePasswords',
+                userid,
                 user,
                 FormData: req.body
             })
