@@ -71,7 +71,7 @@ const profilePage = async (req, res) => {
             where: { id: userid }
         });
         const userData = {
-            f_name: f_name,
+            fullName: `${f_name}${l_name}`,
             l_name: l_name,
             email: email,
             image: image,
@@ -79,7 +79,9 @@ const profilePage = async (req, res) => {
         req.session.users = newUpdate.get({ plain: true })
 
         const hobbiesArray = newUpdate.hobbies ? newUpdate.hobbies.split(",") : [];
-        res.cookie('UserData', userData);
+
+        const cookieData = { fullName: userData.fullName, image: userData.image }
+        res.cookie('UserData', JSON.stringify(cookieData));
 
         if (newUpdate) {
             errorMsg.push({

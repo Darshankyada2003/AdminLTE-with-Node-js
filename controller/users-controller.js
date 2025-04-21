@@ -46,6 +46,7 @@ const addUserPage = async (req, res) => {
                 { model: db.roles, required: false }
             ]
         });
+        const hobbiesArray = userEdit.hobbies ? userEdit.hobbies.split(',') : [];
         console.log(userEdit)
         if (userEdit) {
             return res.render('admin/addNewUser', {
@@ -54,15 +55,18 @@ const addUserPage = async (req, res) => {
                 errorMsg: [],
                 FormData: userEdit,
                 roleData,
+                hobbiesArray
             })
         }
     } else {
+        const hobbiesArray = [];
         return res.render('admin/addNewUser', {
             user: loggedInUser,
             title: "Add New User",
             errorMsg: [],
             FormData: {},
-            roleData
+            roleData,
+            hobbiesArray
         });
 
     }
@@ -78,7 +82,7 @@ const addOrEditUser = async (req, res) => {
 
     const roleData = await db.roles.findAll({});
 
-    const { id, f_name, l_name, image, email, password, gender, number, dob, hobbies, roleId } = req.body;
+    const { id, f_name, l_name, oldImage, email, password, gender, number, dob, hobbies, roleId } = req.body;
     const hashedPassword = password ? await bcrypt.hash(password, 10) : null;
 
     if (!error.isEmpty()) {
@@ -89,6 +93,15 @@ const addOrEditUser = async (req, res) => {
             title: 'Add NewUser',
             FormData: req.body,
             roleData,
+        })
+    }
+
+    let image = req.file ? req.file.filename : oldImage;
+    if (req.file && oldImage) {
+        fs.unlink(`public/img/userImages/${oldImage}`, (err) => {
+            if (err) {
+                console.error('old is not delete', err)
+            }
         })
     }
 
@@ -115,7 +128,7 @@ const addOrEditUser = async (req, res) => {
             l_name,
             email,
             password,
-            image: req.file ? req.file.filename : image,
+            image: image,
             number,
             gender,
             hobbies: hobbiesFormate,

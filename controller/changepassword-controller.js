@@ -5,11 +5,9 @@ const db = require('../models');
 // changePassword GET
 const changePassword = (req, res) => {
     // const id = req.params.id;
-    const user = req.session.users
     res.render("admin/changepassword", {
         title: "ChangePasswords",
         // userid: id,
-        user,
         errorMsg: [],
         FormData: {}
     });

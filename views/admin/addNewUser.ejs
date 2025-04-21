@@ -40,7 +40,7 @@
                                             <h4 class="card-title">Add New User</h4>
                                         </div>
                                     </div>
-                                    <form action="<%= FormData.id ? '/editUser/'+FormData.id :'/addUser' %>" method="post" enctype="multipart/form-data">
+                                    <form action="<%= FormData.id ? '/editUser/'+FormData.id :'/addUser' %>" method="post" enctype="multipart/form-data" id="addOrEdituser">
                                         <div class="card-body">
                                             <div class="d-flex align-items-center h-100 justify-content-center">
                                                 <div class="form-group">
@@ -110,34 +110,43 @@
                                                             <div class="">
                                                                 <div class="form-check form-check-inline">
                                                                     <input type="checkbox" class="form-check-input"
-                                                                        name="hobbies" value="sports" id="sports">
+                                                                        name="hobbies" value="sports" id="sports"
+                                                                        <% if(hobbiesArray?.includes('sports')) { %> checked <%} %>
+                                                                        >
                                                                     <label class="form-check-label"
                                                                         for="sports">Sports</label>
                                                                 </div>
                                                                 <div class="form-check form-check-inline">
                                                                     <input type="checkbox" class="form-check-input"
-                                                                        name="hobbies" value="painting" id="painting">
+                                                                        name="hobbies" value="painting" id="painting"
+                                                                        <% if(hobbiesArray?.includes('painting')) { %> checked <%} %>
+                                                                        >
                                                                     <label class="form-check-label"
                                                                         for="painting">Painting</label>
                                                                 </div>
                                                                 <div class="form-check form-check-inline">
                                                                     <input type="checkbox" class="form-check-input"
-                                                                        name="hobbies" value="dance" id="dance">
+                                                                        name="hobbies" value="dance" id="dance"
+                                                                        <% if(hobbiesArray?.includes('dance')) { %> checked <%} %>
+                                                                        >
                                                                     <label class="form-check-label"
                                                                         for="dance">Dance</label>
                                                                 </div>
                                                                 <div class="form-check form-check-inline">
                                                                     <input type="checkbox" class="form-check-input"
-                                                                        name="hobbies" value="learning" id="learning">
+                                                                        name="hobbies" value="learning" id="learning"
+                                                                        <% if(hobbiesArray?.includes('learning')) { %> checked <%} %>
+                                                                        >
                                                                     <label class="form-check-label"
                                                                         for="learning">learning</label>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label>Role:</label>
+                                                            <label>Role:<span
+                                                                class="text-red">*</span></label>
                                                             <select class="form-control select2" style="width: 100%;" name="roleId" id="roleId">
-                                                              <!-- <option selected="selected">Alabama</option> -->
+                                                              <option value="" selected>Select Role</option>
                                                                 <% if(roleData){ %>
                                                                     <% roleData.forEach((role) => { %>
                                                                         <option value="<%= role.id %>" <%= FormData.role?.id === role.id ? 'selected' : '' %>><%= role.title %></option>
@@ -145,6 +154,15 @@
                                                                 <% } %>
                                                             </select>
                                                         </div>
+                                                        <% if(errorMsg){ %>
+                                                            <% errorMsg.forEach((err) => { %>
+                                                                <% if(err.path === "roleId"){ %>
+                                                                    <span class="error">
+                                                                        <%= err.msg %>    
+                                                                    </span>    
+                                                                    <% } %>
+                                                            <% }) %>     
+                                                        <% } %>
                                                     </div>
                                                 </div>
                                                 <!--right se ction-->
@@ -173,6 +191,7 @@
                                                                 name="password" placeholder="Enter password"
                                                                 value="<%= FormData.password%>">
                                                         </div>
+                                                        <!-- <%= FormData.id ? 'disabled' : ''%> -->
                                                         <% if(errorMsg){ %>
                                                             <% errorMsg.forEach((err) => { %>
                                                                 <% if(err.path === "password"){ %>
@@ -220,6 +239,9 @@
         </div>
         <!-- jQuery -->
         <script src="/js/jquery.min.js"></script>
+
+        <!--script file jQuery validation-->
+        <%- include("../auth/includes/script.ejs") %>
 
         <script src="/js/jquery-ui.min.js"></script>
         <!-- <script src="/js/password.js"></script> -->

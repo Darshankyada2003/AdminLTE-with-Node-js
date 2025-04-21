@@ -12,15 +12,8 @@
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="/">
                 <div class="d-flex justify-content-between">
-                    <% if(user && user.image) { %>
-                        <img src="/img/userImages/<%= user.image ? user.image : "null" %>" alt="" class="img-circle elevation-2 size-32">
-                    <% } %>
+                    <img src="" class="user-image img-circle elevation-2 size-32">
                     <span class="mt-1 ml-2 user-name">
-                        <% if(user) { %>
-                        <%= user.f_name %> <%= user.l_name %>
-                        <% }else { %>
-                           Guest    
-                        <% } %>
                     </span>
                 </div>
             </a>
@@ -42,9 +35,8 @@
                 </a>
             </div>
         </li>
-        <!-- <%= user ? user.name : 'Guest' %> -->
     </ul>
-    <!-- <script>
+    <script>   
         function getCookie(name) {
             const cookieArr = document.cookie.split(';');
             for (let i = 0; i < cookieArr.length; i++) {
@@ -57,7 +49,6 @@
         }
         $(document).ready(function () {
             console.log("All cookies:", document.cookie);
-            debugger
             const userData = getCookie('UserData');
             if (userData) {
                 try {
@@ -73,5 +64,5 @@
                 console.log("UserData cookie not found");
             }
         });
-    </script> -->
+    </script>
 </nav>

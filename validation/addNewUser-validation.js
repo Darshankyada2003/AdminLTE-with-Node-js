@@ -6,6 +6,7 @@ const addNewUserValidation = [
     check("email", "Email is required").isEmail().withMessage("Enter a valid Email"),
     check('password').notEmpty().withMessage('Password is Required').bail()
         .isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
+    check('roleId', 'Role is required').notEmpty()
 ]
 
 module.exports = {

@@ -5,6 +5,7 @@ $(document).ready(function () {
     const ForgotPassword = $("#ForgotPasswordForm");
     const ProfileForm = $("#ProfileForm");
     const roleForm = $("#RoleForm");
+    const addOrEditUser = $('#addOrEdituser');
 
     loginForm.validate({
         rules: {
@@ -164,5 +165,42 @@ $(document).ready(function () {
         errorPlacement: function (error, element) {
             error.insertAfter(element.closest('.form-group'));
         }
-    })
+    });
+
+    addOrEditUser.validate({
+        rules: {
+            f_name: {
+                required: true
+            },
+            l_name: {
+                required: true
+            },
+            email: {
+                required: true
+            },
+            password: {
+                required: true
+            },
+            roleId: {
+                required: true
+            }
+        },
+        messages: {
+            f_name: {
+                required: "First Name is required"
+            },
+            l_name: {
+                required: "Last Name is required"
+            },
+            email: {
+                required: "Email is required"
+            },
+            password: {
+                required: "Password is required"
+            },
+            roleId: {
+                required: "Role is required"
+            }
+        }
+    });
 });
