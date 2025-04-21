@@ -1,4 +1,4 @@
-const { validationResult, check } = require('express-validator');
+const { validationResult } = require('express-validator');
 const bcrypt = require('bcrypt')
 const db = require('../models');
 
@@ -66,7 +66,8 @@ const registration = async (req, res) => {
         const createUser = await db.users.create({
             f_name,
             email,
-            password: hashPassword
+            password: hashPassword,
+            roleId: 2
         });
         if (createUser) {
             errorMsg.push({
@@ -79,7 +80,9 @@ const registration = async (req, res) => {
                 path: "registerFailed"
             })
         }
-        return res.render('auth/registration', {
+        console.log(errorMsg);
+
+        res.render('auth/registration', {
             errorMsg
         })
     } catch (error) {
@@ -94,7 +97,7 @@ const registerPage = (req, res) => {
     res.render('auth/registration', {
         errorMsg: [],
         FormData: {},
-        title : 'Registration'
+        title: 'Registration'
     })
 }
 
@@ -157,14 +160,15 @@ const login = async (req, res) => {
 
         // Store user data in a cookie
         const userData = {
-            fullName: `${checkUser.f_name} ${checkUser.l_name}`,
+            fullName: `${checkUser.f_name || ''} ${checkUser.l_name || ''}`,
             email: checkUser.email,
             image: checkUser.image,
             l_name: checkUser.l_name,
             number: checkUser.number,
             gender: checkUser.gender,
             dob: checkUser.dob,
-            hobbies: checkUser.hobbies
+            hobbies: checkUser.hobbies,
+            roleId: checkUser.roleId
         };
 
         // Store session
@@ -174,7 +178,14 @@ const login = async (req, res) => {
             ...userData
         };
 
-        const cookieData = { fullName: userData.fullName, image: userData.image };
+        const role = await db.users.findOne({
+            where: { id: checkUser.id },
+            include: [
+                { model: db.roles, required: false }
+            ]
+        })
+        console.log("Role Data:", role.role.title);
+        const cookieData = { fullName: userData.fullName, image: userData.image, role: role.role.title };
 
         res.cookie("UserData", JSON.stringify(cookieData));
 

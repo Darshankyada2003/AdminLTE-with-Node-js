@@ -48,14 +48,14 @@
                         <% if(error.path==="registerSuccess" ) { %>
                             <div class="alert alert-success" id="toggle_close" role="alert">
                                 <%= error.msg %>
-                                    <span class="fas fa-times float-right mt-1" id="alert_box"></span>
+                                <span class="fas fa-times float-right mt-1" id="alert_box"></span>
                             </div>
-                            <% } %>
-                                <% }); %>
-                                    <% } %>
+                        <% } %>
+                    <% }); %>
+                <% } %>
 
                 <!--Error message-->
-            <!--<% if(errorMsg) { %>
+                <!--<% if(errorMsg) { %>
                     <% errorMsg.filter(function (error) { %>
                             <% if(error.path !=="registerSuccess" ) { %>
                                 <div class="alert alert-danger" role="alert">
@@ -65,18 +65,18 @@
                     <% }); %>
                 <% } %>   -->
 
-                                        <!-- Registration failed-->
-                                        <div>
-                                            <% if(errorMsg) { %>
-                                                <% errorMsg.forEach(function (error) { %>
-                                                    <% if(error.path==="registerFailed" ) { %>
-                                                        <p class="text text-danger">
-                                                            <%= error.msg %>
-                                                        </p>
-                                                        <% } %>
-                                                            <% }); %>
-                                                                <% } %>
-                                        </div>
+                <!-- Registration failed-->
+                <div>
+                    <% if(errorMsg) { %>
+                        <% errorMsg.forEach(function (error) { %>
+                                <% if(error.path==="registerFailed" ) { %>
+                                    <p class="text text-danger">
+                                        <%= error.msg %>
+                                    </p>
+                                <% } %>
+                        <% }); %>
+                    <% } %>
+                </div>
                                         <form action="/registration" method="post" id="RegisterForm">
                                             <div class="input-group mt-2">
                                                 <input type="text" class="form-control" placeholder="Full name"

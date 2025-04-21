@@ -48,7 +48,6 @@
             return null;
         }
         $(document).ready(function () {
-            console.log("All cookies:", document.cookie);
             const userData = getCookie('UserData');
             if (userData) {
                 try {
@@ -56,6 +55,10 @@
                     $('.user-name').text(user.fullName || 'Guest');
                     if (user.image) {
                         $('.user-image').attr('src', `/img/userImages/${user.image}`);
+                    }
+                    if(user.role !== 'Admin'){
+                        $('#roleMenu').hide();
+                        $('#userMenu').hide();
                     }
                 } catch (e) {
                     console.error('Invalid JSON in cookie');

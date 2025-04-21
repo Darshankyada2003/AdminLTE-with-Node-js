@@ -2,11 +2,13 @@ const express = require('express');
 const router = express.Router();
 const roleController = require('../controller/roleController');
 const roleValidation = require('../validation/roleuser-validation');
+const authMiddleware = require('../middleware/auth-middleware');
+const admin = require('../middleware/role-middleware');
 
 // GET
-router.get('/role', roleController.roleuser);
-router.get('/addNewrole', roleController.addNewrole);
-router.get('/editrole/:id', roleController.editrolePage);
+router.get('/role', admin.isAdmin, authMiddleware.isAuthenticated, roleController.roleuser);
+router.get('/addNewrole', admin.isAdmin, authMiddleware.isAuthenticated, roleController.addNewrole);
+router.get('/editrole/:id', admin.isAdmin, authMiddleware.isAuthenticated, roleController.editrolePage);
 
 // POST
 router.post('/addNewrole', roleValidation.roleuserValidation, roleController.addNewrolePage);
